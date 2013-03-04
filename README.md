@@ -125,8 +125,10 @@ into your existing repository. Assuming you're starting from scratch, simply
 clone this repository using git:
 
 ```sh
-$ git clone --recursive git://github.com/joshdmiller/ng-boilerplate my-project-name
+$ git clone git://github.com/joshdmiller/ng-boilerplate my-project-name
 $ cd my-project-name
+$ git submodule init
+$ git submodule update
 ```
 
 And then install the remaining build dependencies locally:
