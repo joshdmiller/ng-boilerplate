@@ -83,7 +83,7 @@ ng-boilerplate/
   |- testacular/
   |- vendor/
   |  |- angular/
-  |  |- twitter-bootstrap/
+  |  |- bootstrap/
   |- Gruntfile.js
   |- module.prefix
   |- module.suffix
