@@ -1,14 +1,14 @@
 module.exports = function ( grunt ) {
-  var testacularCmd = process.platform === 'win32' ? 'testacular.cmd' : 'testacular';
+  var karmaCmd = process.platform === 'win32' ? 'karma.cmd' : 'karma';
   
   // TODO migrate this entirely to Grunt
-  function runTestacular( testConfigFile, options ) {
+  function runKarma( testConfigFile, options ) {
     var args = [ 'start', testConfigFile, '--reporters=dots', '--colors' ].concat( options ),
         done = grunt.task.current.async(),
         child = grunt.util.spawn({
-          cmd: testacularCmd,
+          cmd: karmaCmd,
           args: args
-        }, function testacularError( err, result, code ) {
+        }, function karmaError( err, result, code ) {
           grunt.log.writeln("Running cmd");
           if ( code ) {
             done( false );
@@ -21,9 +21,9 @@ module.exports = function ( grunt ) {
     child.stderr.pipe(process.stderr);
   };
 
-  grunt.registerMultiTask( 'test', 'run testacular unit tests', function gruntTestTask() {
+  grunt.registerMultiTask( 'test', 'run karma unit tests', function gruntTestTask() {
     var options = [ '--single-run', '--no-auto-watch' ];
-    runTestacular( this.data.conf, options );
+    runKarma( this.data.conf, options );
   });
 };
 

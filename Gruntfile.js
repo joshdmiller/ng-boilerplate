@@ -13,7 +13,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   /**
-   * The `build` directory contains our custom Grunt tasks for using testacular
+   * The `build` directory contains our custom Grunt tasks for using karma
    * and compiling our templates into the cache. If we just tell Grunt about the
    * directory, it will load all the requisite JavaSript files for us.
    */
@@ -225,11 +225,11 @@ module.exports = function ( grunt ) {
     },
 
     /**
-     * The Testacular configurations.
+     * The Karma configurations.
      */
     test: {
       unit: {
-        conf: 'testacular/testacular-unit.js'
+        conf: 'karma/karma-unit.js'
       }
     },
 
