@@ -8,7 +8,7 @@ src/
   |  |- angular/
   |  |  |- angular.js
   |  |  |- angular-mocks.js
-  |  |- twitter-bootstrap/
+  |  |- bootstrap/
 ```
 
 The `vendor/` folder contains libraries that are either foundational or 
@@ -17,7 +17,7 @@ both `angular.js` version 1.1.2, which is used during testing and which is of
 course included in the final build, and `angular-mocks.js`, which is used only
 for testing.
 
-The `twitter-bootstrap/` folder is a git submodule that references the latest
+The `bootstrap/` folder is a git submodule that references the latest
 version of Twitter Bootstrap. Nothing from here is included in the final build,
 but `src/less/main.less` can import any file from this directory it needs to and
 the `recess` Grunt task will compile the LESS (inclusive of whatever Bootstrap
