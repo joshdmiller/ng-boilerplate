@@ -372,7 +372,7 @@ module.exports = function ( grunt ) {
         files: [ 
           '<%= app_files.js %>'
         ],
-        tasks: [ 'jshint:src', 'karma:unit:run', 'concat:dist', 'ngmin:dist', 'uglify:dist' ]
+        tasks: [ 'jshint:src', 'karma:unit:run', 'copy:dev_js', 'index:dev' ]
       },
 
       /**
@@ -383,15 +383,15 @@ module.exports = function ( grunt ) {
         files: [ 
           'src/assets/**/*'
         ],
-        tasks: [ 'copy' ]
+        tasks: [ 'copy:dev_assets' ]
       },
 
       /**
        * When index.html changes, we need to compile just it.
        */
       html: {
-        files: [ '<%= src.html %>' ],
-        tasks: [ 'index' ]
+        files: [ '<%= app_files.index %>' ],
+        tasks: [ 'index:dev' ]
       },
 
       /**
@@ -399,10 +399,10 @@ module.exports = function ( grunt ) {
        */
       tpls: {
         files: [ 
-          '<%= src.atpl %>', 
-          '<%= src.ctpl %>'
+          '<%= app_files.atpl %>', 
+          '<%= app_files.ctpl %>'
         ],
-        tasks: [ 'html2js', 'concat:dist', 'ngmin:dist', 'uglify:dist' ]
+        tasks: [ 'html2js', 'karma:unit:run' ]
       },
 
       /**
@@ -420,7 +420,7 @@ module.exports = function ( grunt ) {
        */
       unittest: {
         files: [
-          '<%= src.unit %>'
+          '<%= app_files.unit %>'
         ],
         tasks: [ 'jshint:test', 'karma:unit:run' ],
         options: {
@@ -438,24 +438,20 @@ module.exports = function ( grunt ) {
    * before watching for changes.
    */
   grunt.renameTask( 'watch', 'delta' );
-  grunt.registerTask( 'watch', [ 'default', 'karma:unit', 'delta' ] );
+  grunt.registerTask( 'watch', [ 'before-test', 'after-test', 'karma:unit', 'delta' ] );
 
   /**
    * The default task is to build.
    */
   grunt.registerTask( 'default', [ 'build' ] );
-  grunt.registerTask( 'build', ['clean', 'html2js', 'jshint', 'karma:continuous', 'recess', 'copy', 'index:dev'] );
+  grunt.registerTask( 'build', ['before-test', 'karma:continuous', 'after-test' ] );
+  grunt.registerTask( 'before-test', [ 'clean', 'html2js', 'jshint' ] );
+  grunt.registerTask( 'after-test', [ 'recess', 'copy', 'index:dev' ] );
   
   /*
    * Minify and concat all the files
    */
   grunt.registerTask( 'compile', ['build', 'ngmin', 'concat', 'uglify', 'index:bin'] );
-
-  /**
-   * A task to build the project, without some of the slower processes. This is
-   * used during development and testing and is part of the `watch`.
-   */
-  grunt.registerTask( 'quick-build', ['clean', 'html2js', 'jshint', 'test', 'concat', 'recess', 'index', 'copy'] );
 
   /** 
    * The index.html template includes the stylesheet and javascript sources
@@ -466,6 +462,8 @@ module.exports = function ( grunt ) {
     var jsFiles = this.filesSrc.filter(function(file) {
       return file.match(/\.js$/);
     }).map(function(file) {
+      //Some of our paths are bad: they start with `bin/` or `dev/`. This fixes
+      //that
       return file.replace(/^(bin|dev)\//, '');
     });
     var cssFiles = this.filesSrc.filter(function(file) {
