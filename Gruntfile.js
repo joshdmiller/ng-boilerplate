@@ -242,7 +242,7 @@ module.exports = function ( grunt ) {
       app: {
         src: [ '<%= src.atpl %>' ],
         base: 'src/app',
-        dest: 'dist/tmp'
+        dest: '<%= distdir %>/tmp'
       },
 
       /**
@@ -251,7 +251,7 @@ module.exports = function ( grunt ) {
       component: {
         src: [ '<%= src.ctpl %>' ],
         base: 'src/components',
-        dest: 'dist/tmp'
+        dest: '<%= distdir %>/tmp'
       }
     },
 
@@ -396,7 +396,7 @@ module.exports = function ( grunt ) {
    * based on dynamic names calculated in this Gruntfile. This task compiles it.
    */
   grunt.registerTask( 'index', 'Process index.html template', function () {
-    grunt.file.copy('src/index.html', 'dist/index.html', { process: grunt.template.process });
+    grunt.file.copy('src/index.html', grunt.config('distdir') + '/index.html', { process: grunt.template.process });
   });
 
 };
