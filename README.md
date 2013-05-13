@@ -80,7 +80,7 @@ ng-boilerplate/
   |  |  |- <app logic>
   |  |- assets/
   |  |  |- <static files>
-  |  |- components/
+  |  |- common/
   |  |  |- <reusable code & external libs>
   |  |- less/
   |  |  |- main.less
@@ -238,7 +238,7 @@ changes:
   final JavaScript source file (`dist/assets/ng-boilerplate.js`).
 * `delta:tpls` - When any `*.tpl.html` file within `src/` changes, all templates
   are put into strings in a JavaScript file (technically two, one for
-  `src/components/` and another for `src/app/`) that will add the template to
+  `src/common/` and another for `src/app/`) that will add the template to
   AngularJS's
   [`$templateCache`](http://docs.angularjs.org/api/ng.$templateCache) so
   template files are part of the initial JavaScript payload and do not require
