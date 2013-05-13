@@ -1,6 +1,8 @@
 *.sw*
 *~
-dist/
+components/
+dev/
+bin/
 node_modules/
 vendor/angular-bootstrap/
 vendor/jquery/
