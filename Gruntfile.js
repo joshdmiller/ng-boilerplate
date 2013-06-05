@@ -15,7 +15,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-ngmin');
 
   /**
-   * The `build` directory contains our custom Grunt tasks for using karma
+   * The `grunt-tasks` directory contains our custom Grunt tasks for using karma
    * and compiling our templates into the cache. If we just tell Grunt about the
    * directory, it will load all the requisite JavaSript files for us.
    */
