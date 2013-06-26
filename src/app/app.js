@@ -11,8 +11,11 @@ angular.module( 'ngBoilerplate', [
   $urlRouterProvider.otherwise( '/home' );
 })
 
-.run( function run ( titleService ) {
+.run( function run ( titleService, $rootScope ) {
   titleService.setSuffix( ' | ngBoilerplate' );
+  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+    titleService.setTitle( toState.data.pageTitle );
+  });
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
