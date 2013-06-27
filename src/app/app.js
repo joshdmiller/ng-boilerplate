@@ -11,14 +11,15 @@ angular.module( 'ngBoilerplate', [
   $urlRouterProvider.otherwise( '/home' );
 })
 
-.run( function run ( titleService, $rootScope ) {
-  titleService.setSuffix( ' | ngBoilerplate' );
-  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-    titleService.setTitle( toState.data.pageTitle );
-  });
+.run( function run () {
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
+  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+    if ( angular.isDefined( toState.data.pageTitle ) ) {
+      $scope.pageTitle = toState.data.pageTitle + ' | ngBoilerplate' ;
+    }
+  });
 })
 
 ;
