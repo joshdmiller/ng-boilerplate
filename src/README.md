@@ -12,6 +12,8 @@ src/
   |  |- home/
   |  |- app.js
   |  |- app.spec.js
+  |  |- app.fixture.js
+  |  |- app.scenario.js
   |- assets/
   |  |- fonts/
   |- common/
