@@ -1,5 +1,5 @@
 module.exports = function ( grunt ) {
-  
+
   /** 
    * Load required Grunt tasks. These are installed based on the versions listed
    * in `package.json` when you do `npm install` in this directory.
@@ -128,6 +128,16 @@ module.exports = function ( grunt ) {
           }
         ]
       },
+      build_vendorcss: {
+        files: [
+          {
+            src: [ '<%= vendor_files.css %>' ],
+            dest: '<%= build_dir %>/',
+            cwd: '.',
+            expand: true
+          }
+        ]
+      },
       compile_assets: {
         files: [
           {
@@ -224,7 +234,7 @@ module.exports = function ( grunt ) {
     recess: {
       build: {
         src: [ '<%= app_files.less %>' ],
-        dest: '<%= build_dir %>/assets/<%= pkg.name %>.css',
+        dest: '<%= build_dir %>/css/<%= pkg.name %>.css',
         options: {
           compile: true,
           compress: false,
@@ -234,8 +244,8 @@ module.exports = function ( grunt ) {
         }
       },
       compile: {
-        src: [ '<%= recess.build.dest %>' ],
-        dest: '<%= recess.build.dest %>',
+        src: [ '<%= vendor_files.css %>', '<%= recess.build.dest %>' ],
+        dest: '<%= compile_dir %>/css/<%= pkg.name %>.css',
         options: {
           compile: true,
           compress: true,
@@ -373,7 +383,6 @@ module.exports = function ( grunt ) {
         dir: '<%= compile_dir %>',
         src: [
           '<%= concat.compile_js.dest %>',
-          '<%= vendor_files.css %>',
           '<%= recess.compile.dest %>'
         ]
       }
@@ -541,7 +550,7 @@ module.exports = function ( grunt ) {
   grunt.registerTask( 'build', [
     'clean', 'html2js', 'jshint', 'coffeelint', 'coffee','recess:build',
     'copy:build_assets', 'copy:build_appjs', 'copy:build_vendorjs',
-    'index:build', 'karmaconfig', 'karma:continuous' 
+    'copy:build_vendorcss', 'index:build', 'karmaconfig', 'karma:continuous'
   ]);
 
   /**
@@ -605,7 +614,7 @@ module.exports = function ( grunt ) {
    */
   grunt.registerMultiTask( 'karmaconfig', 'Process karma config templates', function () {
     var jsFiles = filterForJS( this.filesSrc );
-    
+
     grunt.file.copy( 'karma/karma-unit.tpl.js', grunt.config( 'build_dir' ) + '/karma-unit.js', { 
       process: function ( contents, path ) {
         return grunt.template.process( contents, {
