@@ -9,6 +9,8 @@ src/
   |  |- about/
   |  |- app.js
   |  |- app.spec.js
+  |  |- app.fixture.js
+  |  |- app.scenario.js
 ```
 
 The `src/app` directory contains all code specific to this application. Apart
@@ -89,3 +91,7 @@ One of the design philosophies of `ngBoilerplate` is that tests should exist
 alongside the code they test and that the build system should be smart enough to
 know the difference and react accordingly. As such, the unit test for `app.js`
 is `app.spec.js`, though it is quite minimal.
+
+The e2e test is `app.scenario.js`, and it's data fixtures are `app.fixture.js`.
+Data fixtures will only be included in the build copy, not the compiled copy.
+This way they can be used in development and e2e tests.

@@ -260,8 +260,9 @@ changes:
   `src/less/main.less` file is linted and copied into
   `build/assets/ng-boilerplate.css`.
 * `delta:jssrc` - When any JavaScript file within `src/` that does not end in
-  `.spec.js` changes, all JavaScript sources are linted, all unit tests are run,
-  and the all source files are re-copied to `build/src`.
+  `.spec.js`, `.fixture.js` or `.scenario.js` changes, all JavaScript sources
+  are linted, all unit tests are run, and the all source files are re-copied
+  to `build/src`.
 * `delta:coffeesrc` - When any `*.coffee` file in `src/` that doesn't match
   `*.spec.coffee` changes, the Coffee scripts are compiled independently into
   `build/src` in a structure mirroring where they were in `src/` so it's easy to
@@ -280,6 +281,10 @@ changes:
   are linted and the unit tests are executed.
 * `delta:coffeeunit` - When any `*.spec.coffee` file in `src/` changes, the test
   files are linted, compiled their tests executed.
+* `delta:jsfixture` and `delta:coffeefixture` - When any `*.fixture.*` file in
+  `src/` changes, the files are linted and copied to the build folder.
+* `delta:jsscenario` and `delta:coffeescenario` - When any `*.scenario.*` file in
+  `src/` changes, the files are linted.
 
 As covered in the previous section, `grunt watch` will execute a full build
 up-front and then run any of the aforementioned `delta:*` tasks as needed to
