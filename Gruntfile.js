@@ -128,12 +128,23 @@ module.exports = function ( grunt ) {
           }
         ]
       },
+        build_vendorcss: {
+            files: [
+                {
+                    src: [ '<%= vendor_files.css %>' ],
+                    dest: '<%= build_dir %>/assets/',
+                    cwd: '.',
+                    expand: true,
+                    flatten:true
+                }
+            ]
+        },
       compile_assets: {
         files: [
           {
             src: [ '**' ],
             dest: '<%= compile_dir %>/assets',
-            cwd: '<%= build_dir %>/assets',
+            cwd: 'src/assets',
             expand: true
           }
         ]
@@ -234,8 +245,8 @@ module.exports = function ( grunt ) {
         }
       },
       compile: {
-        src: [ '<%= recess.build.dest %>' ],
-        dest: '<%= recess.build.dest %>',
+        src: [ '<%= recess.build.dest %>', '<%= vendor_files.css%>' ],
+        dest: '<%= compile_dir %>/assets/<%= pkg.name %>.css',
         options: {
           compile: true,
           compress: true,
@@ -359,8 +370,7 @@ module.exports = function ( grunt ) {
           '<%= build_dir %>/src/**/*.js',
           '<%= html2js.common.dest %>',
           '<%= html2js.app.dest %>',
-          '<%= vendor_files.css %>',
-          '<%= recess.build.dest %>'
+          '<%= build_dir %>/assets/*.css'
         ]
       },
 
@@ -373,7 +383,6 @@ module.exports = function ( grunt ) {
         dir: '<%= compile_dir %>',
         src: [
           '<%= concat.compile_js.dest %>',
-          '<%= vendor_files.css %>',
           '<%= recess.compile.dest %>'
         ]
       }
@@ -540,8 +549,8 @@ module.exports = function ( grunt ) {
    */
   grunt.registerTask( 'build', [
     'clean', 'html2js', 'jshint', 'coffeelint', 'coffee','recess:build',
-    'copy:build_assets', 'copy:build_appjs', 'copy:build_vendorjs',
-    'index:build', 'karmaconfig', 'karma:continuous' 
+    'copy:build_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss',
+    'index:build', 'karmaconfig', 'karma:continuous'
   ]);
 
   /**
