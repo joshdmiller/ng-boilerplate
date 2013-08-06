@@ -132,9 +132,10 @@ module.exports = function ( grunt ) {
             files: [
                 {
                     src: [ '<%= vendor_files.css %>' ],
-                    dest: '<%= build_dir %>',
+                    dest: '<%= build_dir %>/assets/',
                     cwd: '.',
-                    expand: true
+                    expand: true,
+                    flatten:true
                 }
             ]
         },
@@ -143,7 +144,7 @@ module.exports = function ( grunt ) {
           {
             src: [ '**' ],
             dest: '<%= compile_dir %>/assets',
-            cwd: '<%= build_dir %>/assets',
+            cwd: 'src/assets',
             expand: true
           }
         ]
@@ -245,7 +246,7 @@ module.exports = function ( grunt ) {
       },
       compile: {
         src: [ '<%= recess.build.dest %>', '<%= vendor_files.css%>' ],
-        dest: '<%= recess.build.dest %>',
+        dest: '<%= compile_dir %>/assets/<%= pkg.name %>.css',
         options: {
           compile: true,
           compress: true,
@@ -369,8 +370,7 @@ module.exports = function ( grunt ) {
           '<%= build_dir %>/src/**/*.js',
           '<%= html2js.common.dest %>',
           '<%= html2js.app.dest %>',
-          '<%= vendor_files.css %>',
-          '<%= recess.build.dest %>'
+          '<%= build_dir %>/assets/*.css'
         ]
       },
 
