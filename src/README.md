@@ -13,13 +13,11 @@ src/
   |  |- app.js
   |  |- app.spec.js
   |- assets/
-  |  |- fonts/
   |- common/
   |  |- plusOne/
   |  |- titleService/
   |- less/
   |  |- main.less
-  |  |- font-awesome.less
   |  |- variables.less
   |- index.html
 ```
