@@ -37,16 +37,18 @@ require their own submodules.
 As a matter of course, we also require the template modules that are generated
 during the build.
 
-However, the modules from `src/components` should be required by the app
+However, the modules from `src/common` should be required by the app
 submodules that need them to ensure proper dependency handling. These are
 app-wide dependencies that are required to assemble your app.
 
 ```js
 angular.module( 'ngBoilerplate', [
-  'app-templates',
-  'component-templates',
+  'templates-app',
+  'templates-common',
   'ngBoilerplate.home',
   'ngBoilerplate.about'
+  'ui.state',
+  'ui.route'
 ])
 ```
 
@@ -58,8 +60,8 @@ is where we want to start, which has a defined route for `/home` in
 `src/app/home/home.js`.
 
 ```js
-.config( function ngBoilerplateConfig ( $routeProvider ) {
-  $routeProvider.otherwise({ redirectTo: '/home' });
+.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
+  $urlRouterProvider.otherwise( '/home' );
 })
 ```
 
@@ -69,9 +71,9 @@ an optional suffix to be appended to the end of any title set later on, so we se
 this now to ensure it runs before our controllers set titles.
 
 ```js
-.run([ 'titleService', function run ( titleService ) {
+.run( function run ( titleService ) {
   titleService.setSuffix( ' | ngBoilerplate' );
-}])
+})
 ```
 
 And then we define our main application controller. It need not have any logic, 
@@ -79,8 +81,8 @@ but this is a good place for logic not specific to the template or route, such a
 menu logic or page title wiring.
 
 ```js
-.controller( 'AppCtrl', [ '$scope', function AppCtrl ( $scope ) {
-}])
+.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
+})
 ```
 
 ### Testing
