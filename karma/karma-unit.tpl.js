@@ -1,6 +1,6 @@
-module.exports = function ( karma ) {
-  karma.configure({
-    /** 
+module.exports = function (config){
+  config.set({
+    /**
      * From where to look for files, starting with the location of this file.
      */
     basePath: '../',
@@ -34,7 +34,7 @@ module.exports = function ( karma ) {
     runnerPort: 9100,
     urlRoot: '/',
 
-    /** 
+    /**
      * Disable file watching by default.
      */
     autoWatch: false,
@@ -57,4 +57,3 @@ module.exports = function ( karma ) {
     ]
   });
 };
-
