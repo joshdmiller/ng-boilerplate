@@ -90,6 +90,8 @@ ng-boilerplate/
   |  |- angular-bootstrap/
   |  |- bootstrap/
   |  |- placeholders/
+  |- .bowerrrc
+  |- bower.json
   |- build.config.js
   |- Gruntfile.js
   |- module.prefix
@@ -111,7 +113,7 @@ learn more.
   system.
 - `.bowerrc` - the Bower configuration file. This tells Bower to install
   components into the `vendor/` directory.
-- `bower.js` - this is our project configuration for Bower and it contains the
+- `bower.json` - this is our project configuration for Bower and it contains the
   list of Bower dependencies we need.
 - `build.config.js` - our customizable build settings; see "The Build System"
   below.
