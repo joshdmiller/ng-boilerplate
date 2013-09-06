@@ -90,7 +90,7 @@ ng-boilerplate/
   |  |- angular-bootstrap/
   |  |- bootstrap/
   |  |- placeholders/
-  |- .bowerrrc
+  |- .bowerrc
   |- bower.json
   |- build.config.js
   |- Gruntfile.js
@@ -109,7 +109,7 @@ learn more.
 - `src/` - our application sources. [Read more &raquo;](src/README.md)
 - `vendor/` - third-party libraries. [Bower](http://bower.io) will install
   packages here. Anything added to this directory will need to be manually added
-  to `Gruntfile.js` and `karma/karma-unit.js` to be picked up by the build
+  to `build.config.js` and `karma/karma-unit.js` to be picked up by the build
   system.
 - `.bowerrc` - the Bower configuration file. This tells Bower to install
   components into the `vendor/` directory.
