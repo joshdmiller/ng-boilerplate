@@ -128,6 +128,16 @@ module.exports = function ( grunt ) {
           }
         ]
       },
+      copy_vendor_assets: {
+        files: [
+          {
+            src: [ '<%= vendor_files.font %>' ],
+            dest: '<%= build_dir %>/assets',
+            cwd: '.',
+            expand: true
+          }
+        ]
+      },
       compile_assets: {
         files: [
           {
@@ -360,6 +370,7 @@ module.exports = function ( grunt ) {
           '<%= html2js.common.dest %>',
           '<%= html2js.app.dest %>',
           '<%= vendor_files.css %>',
+          '<%= vendor_files.font %>',
           '<%= recess.build.dest %>'
         ]
       },
@@ -374,6 +385,7 @@ module.exports = function ( grunt ) {
         src: [
           '<%= concat.compile_js.dest %>',
           '<%= vendor_files.css %>',
+          '<%= vendor_files.font %>',          
           '<%= recess.compile.dest %>'
         ]
       }
@@ -540,7 +552,7 @@ module.exports = function ( grunt ) {
    */
   grunt.registerTask( 'build', [
     'clean', 'html2js', 'jshint', 'coffeelint', 'coffee','recess:build',
-    'copy:build_assets', 'copy:build_appjs', 'copy:build_vendorjs',
+    'copy:build_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'copy:copy_vendor_assets',
     'index:build', 'karmaconfig', 'karma:continuous' 
   ]);
 
