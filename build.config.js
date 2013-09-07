@@ -56,6 +56,9 @@ module.exports = {
       'vendor/angular-ui-utils/modules/route/route.js'
     ],
     css: [
+    ],
+    font: [
+      'vendor/roboto-fontface/fonts/Roboto-Regular.woff'
     ]
   },
 };
