@@ -11,6 +11,8 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-conventional-changelog');
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-coffeelint');
@@ -536,7 +538,47 @@ module.exports = function ( grunt ) {
           livereload: false
         }
       }
+    },
+
+    /**
+    * Starts up the node development server and hosts the build directory or compiled directory
+    * when running from the build directory, autoreload is configured so the delta task can notify browser to reload when files change
+    */
+    connect: {
+      options: {
+          port: 9000,
+          // Change this to '0.0.0.0' to access the server from outside.
+          hostname: 'localhost'
+      },
+      build: {
+          options: {
+              base: '<%= build_dir %>',
+              middleware: function (connect,options) {
+                  console.log(options);
+                  return [
+                      require('connect-livereload')(),
+                      connect.static(options.base)
+                  ];
+              }
+          }
+      },
+      bin: {
+          options: {
+              base: '<%= compile_dir %>'
+          }
+      }
+    },
+
+    /**
+    * Opens up the browser / or creates a tab automatically and opening the running app
+    * Note that if you want to disable point of origin restrictions, you have to have already started chrome with --disable-web-security
+    */
+    open: {
+      server: {
+          url: 'http://localhost:<%= connect.options.port %>'
+      }
     }
+
   };
 
   grunt.initConfig( grunt.util._.extend( taskConfig, userConfig ) );
@@ -637,6 +679,27 @@ module.exports = function ( grunt ) {
         });
       }
     });
+  });
+
+  /**
+   *  Builds a clean build and starts the node server on port 9000, then opening the app in a browser
+   *  When running from build directory, watch task monitors for changed files and runs karma unit tests on changes.
+   *  After unit tests are run, livereload triggers the app in the browser to reload.
+   *  This task kan also be run with server:bin, to test the optimized version in the compiled bin folder.
+   */
+  grunt.registerTask('server', function (target) {
+
+    if (target === 'bin') {
+        return grunt.task.run(['clean', 'build', 'compile', 'open', 'connect:bin:keepalive']);
+    }
+
+    grunt.task.run([
+        'clean',
+        'build',
+        'connect:build',
+        'open',
+        'watch'
+    ]);
   });
 
 };
