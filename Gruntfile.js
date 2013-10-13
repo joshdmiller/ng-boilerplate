@@ -25,9 +25,11 @@ module.exports = function ( grunt ) {
   var userConfig = require( './build.config.js' );
 
   /**
-   * Patch in temp less path for processing less files
+   * Load ng-boilerplate tasks
    */
-  userConfig.app_files.temp_less = createTempPath( userConfig.app_files.less );
+  require( './build.utilities.js' )( grunt, userConfig );
+  require( './build.styles.js' )( grunt, userConfig );
+  require( './build.dependencies.js' )( grunt, userConfig );
 
   /**
    * This is the configuration object Grunt uses to give each plugin its
@@ -134,7 +136,17 @@ module.exports = function ( grunt ) {
           }
         ]
       },
-      build_vendorjs: {
+      build_vendor_css: {
+        files: [
+          {
+            src: [ '<%= vendor_files.css %>' ],
+            dest: '<%= build_dir %>/',
+            cwd: '.',
+            expand: true
+          }
+        ]
+      },
+      build_vendor_js: {
         files: [
           {
             src: [ '<%= vendor_files.js %>' ],
@@ -238,8 +250,15 @@ module.exports = function ( grunt ) {
         src: '<%= app_files.temp_less %>',
         pattern: '///<module_styles>',
         files: ['src/app/**/*.less', 'src/common/**/*.less'],
-        reduce: reduceModuleStyleImports,
+        reduce: userConfig.reduce.module_less_imports,
         initialValue: ''
+      },
+      bower_dev_dependencies: {
+        src: 'bower.json',
+        pattern: /["|']devDependencies["|']\:[\s]*\{[\s]*[^}]*[\s]*}/,
+        files: ['src/app/**/.dependencies.js', 'src/common/**/.dependencies.js'],
+        reduce: userConfig.reduce.bower_dev_dependencies,
+        initialValue: []
       }
     },
 
@@ -597,9 +616,9 @@ module.exports = function ( grunt ) {
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'build_styles',
+    'clean', 'html2js', 'jshint', 'process_dependencies', 'coffeelint', 'coffee', 'build_styles',
     'copy:build_app_assets', 'copy:build_vendor_assets',
-    'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
+    'copy:build_appjs', 'copy:build_vendor_js', 'copy:build_vendor_css', 'index:build', 'karmaconfig',
     'karma:continuous'
   ]);
 
@@ -676,32 +695,11 @@ module.exports = function ( grunt ) {
     });
   });
 
-  /**
-   * A utility function to convert a path to a temporary path for copying a file to.
-   */
-  function createTempPath ( in_path ) {
-    return in_path.split( '/' ).reduce( function (previousValue, currentValue, index, array ) {
-      return previousValue + ( index !== 0 ? '/' : '' ) + (index === array.length - 1 ? '__TEMP__' : '') + currentValue;
-    }, '' );
-  }
-
-  /**
-   * A Utility function to reduce an array of less file paths to a string of less file imports.
-   */
-  function reduceModuleStyleImports (previousValue, currentValue, index, array ) {
-    return  previousValue +
-      ( index !== 0 ? '\n' : '' ) +
-      '@import \'' +
-      currentValue.replace( 'src', '..' ) +
-      '\';';
-  }
-
-  grunt.registerTask( 'build_styles', ['copy:main_less', 'import:styles', 'recess:build', 'delete:main_less_copy', 'concat:build_css']);
-
   grunt.registerMultiTask( 'import', 'Imports files', function () {
     var imports = grunt.file
       .expand( this.data, this.data.files )
       .reduce( this.data.reduce, this.data.initialValue );
+
     grunt.file.write(
       this.data.dest || this.data.src,
       grunt.file
