@@ -1,4 +1,7 @@
 module.exports = function( grunt, user_config ) {
+  console.log("DIR:");
+  console.log(__dirname);
+  console.log(process.cwd());
   // ------------------------------------------------------------------------ Private Variables
 
   // ------------------------------------------------------------------------ Init Function

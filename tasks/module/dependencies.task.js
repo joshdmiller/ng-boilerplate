@@ -11,7 +11,7 @@ module.exports = function( grunt, user_config ) {
   // ------------------------------------------------------------------------ Private Functions
   function add_vendor_files_for_module (file_path) {
     var dependencies        = grunt.config.data.vendor_files,
-      module_dependencies = require( './' + file_path);
+      module_dependencies = require( process.cwd() + '/' + file_path);
 
     if ( module_dependencies != null && module_dependencies.vendor_files != null ) {
       if ( module_dependencies.vendor_files.js != null ) {
@@ -30,7 +30,7 @@ module.exports = function( grunt, user_config ) {
     var reduce = user_config.reduce || {};
 
     reduce.bower_dev_dependencies  = function ( dependencies, file_path, index, array ) {
-      var module_dependencies = require( "./" + file_path );
+      var module_dependencies = require( process.cwd() + '/' + file_path );
 
       if (  module_dependencies != null &&
         module_dependencies.bower != null &&

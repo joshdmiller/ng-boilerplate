@@ -27,9 +27,10 @@ module.exports = function ( grunt ) {
   /**
    * Load ng-boilerplate tasks
    */
-  require( './build.utilities.js' )( grunt, userConfig );
-  require( './build.styles.js' )( grunt, userConfig );
-  require( './build.dependencies.js' )( grunt, userConfig );
+  function load_task ( path ) {
+    require( './' + path )( grunt, userConfig );
+  }
+  grunt.file.expand( ['tasks/util/**/*.task.js', 'tasks/module/**/*.task.js'] ).forEach( load_task );
 
   /**
    * This is the configuration object Grunt uses to give each plugin its
