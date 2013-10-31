@@ -32,7 +32,7 @@ around: [Twitter Bootstrap](http://getbootstrap.com),
 [Angular Bootstrap](http://angular-ui.github.io/bootstrap),
 [Font Awesome](http://fortawesome.github.com/Font-Awesome), and
 [LESS](http://lesscss.org). Lastly, it contains a sophisticated
-[Grunt](http://gruntjs.org)-based build system to ensure maximum productivity.
+[Grunt](http://gruntjs.com)-based build system to ensure maximum productivity.
 All you have to do is clone it and start coding!
 
 ## Philosophy
