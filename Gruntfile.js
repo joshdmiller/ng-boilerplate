@@ -598,6 +598,13 @@ module.exports = function ( grunt ) {
 
   grunt.initConfig( grunt.util._.extend( taskConfig, userConfig ) );
 
+  var build_tasks = [
+    'clean', 'html2js', 'jshint', 'process_dependencies', 'coffeelint', 'coffee', 'build_styles',
+    'copy:build_app_assets', 'copy:build_vendor_assets',
+    'copy:build_appjs', 'copy:build_vendor_js', 'copy:build_vendor_css', 'index:build', 'karmaconfig',
+    'karma:continuous'
+  ];
+
   /**
    * In order to make it safe to just compile or copy *only* what was changed,
    * we need to ensure we are starting from a clean, fresh build. So we rename
@@ -606,22 +613,19 @@ module.exports = function ( grunt ) {
    * before watching for changes.
    */
   grunt.renameTask( 'watch', 'delta' );
-  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
+  grunt.registerTask( 'watch', remove_elements(build_tasks, ['karma:continuous']).concat(['karma:unit', 'delta']));
 
   /**
    * The default task is to build and compile.
    */
   grunt.registerTask( 'default', [ 'build', 'compile' ] );
 
+
+
   /**
    * The `build` task gets your app ready to run for development and testing.
    */
-  grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'process_dependencies', 'coffeelint', 'coffee', 'build_styles',
-    'copy:build_app_assets', 'copy:build_vendor_assets',
-    'copy:build_appjs', 'copy:build_vendor_js', 'copy:build_vendor_css', 'index:build', 'karmaconfig',
-    'karma:continuous'
-  ]);
+  grunt.registerTask( 'build', build_tasks);
 
   /**
    * The `compile` task gets your app ready for deployment by concatenating and
@@ -647,6 +651,19 @@ module.exports = function ( grunt ) {
     return files.filter( function ( file ) {
       return file.match( /\.css$/ );
     });
+  }
+
+  /**
+   * A utility function to return a copy of an array with specified elements removed.
+   */
+  function remove_elements ( array, elements ) {
+    var result = [], i;
+    for ( i = 0; i < array.length; i += 1 ) {
+      if (elements.indexOf(array[i]) === -1) {
+        result.push(array[i]);
+      }
+    }
+    return result;
   }
 
   /**
