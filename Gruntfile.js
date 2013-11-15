@@ -544,7 +544,7 @@ module.exports = function ( grunt ) {
        */
       html: {
         files: [ '<%= app_files.html %>' ],
-        tasks: [ 'index:build' ]
+        tasks: [ 'process_dependencies', 'index:build' ]
       },
 
       /**
