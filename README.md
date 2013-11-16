@@ -11,7 +11,8 @@ Install Node.js and then:
 ```sh
 $ git clone git://github.com/joshdmiller/ng-boilerplate
 $ cd ng-boilerplate
-$ sudo npm -g install grunt-cli karma bower
+$ sudo npm -g install grunt-cli karma bower protractor
+$ /usr/local/lib/node_modules/protractor/bin/install_selenium_standalone
 $ npm install
 $ bower install
 $ grunt watch
@@ -138,12 +139,20 @@ for the build system to find it, so they must be installed independently. Once
 you have Node.js installed, you can simply use `npm` to make it all happen:
 
 ```sh
-$ npm -g install grunt-cli karma bower
+$ npm -g install grunt-cli karma bower protractor
 ```
 
 If you're on Linux (like I am) then throw `sudo` in front of that command.  If
 you're on Windows, then you're on your own.
 
+```sh
+$ /usr/local/lib/node_modules/protractor/bin/install_selenium_standalone
+```
+
+This installs the selenium server, used for end-2-end testing.  Unfortunately this
+install script will be in a different location on each operating system, best
+advice is to watch the npm install command to see where it is on your machine.
+ 
 Next, you can either clone this repository using Git, download it as a zip file
 from GitHub, or merge the branch into your existing repository. Assuming you're
 starting from scratch, simply clone this repository using git:
