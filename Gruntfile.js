@@ -18,7 +18,8 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-html2js');
-
+  grunt.loadNpmTasks('grunt-protractor-runner');
+  
   /**
    * Load in our build configuration file.
    */
@@ -281,7 +282,7 @@ module.exports = function ( grunt ) {
       ],
       test: [
         '<%= app_files.jsunit %>',
-        '<%= app_files.jse2e %>',        
+        '<%= app_files.jse2e %>'        
       ],
       gruntfile: [
         'Gruntfile.js'
@@ -311,8 +312,8 @@ module.exports = function ( grunt ) {
       },
       test: {
         files: {
-          src: [ '<%= app_files.coffeeunit %>' ],
-          src: [ '<%= app_files.coffeee2e %>' ]
+          src: [ '<%= app_files.coffeeunit %>',
+                 '<%= app_files.coffeee2e %>' ]
         }
       }
     },
@@ -415,6 +416,18 @@ module.exports = function ( grunt ) {
           '<%= html2js.common.dest %>',
           '<%= test_files.js %>'
         ]
+      }
+    },
+    
+    protractor: {
+      options: {
+        configFile: "protractor/protractor-scenario.tpl.js", 
+        keepAlive: false, 
+        args: {
+          // Arguments passed to the command
+        }
+      },
+      e2eTests: {
       }
     },
 
@@ -574,6 +587,10 @@ module.exports = function ( grunt ) {
    */
   grunt.registerTask( 'compile', [
     'recess:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile'
+  ]);
+
+  grunt.registerTask( 'e2e', [
+    'build', 'protractor'
   ]);
 
   /**
