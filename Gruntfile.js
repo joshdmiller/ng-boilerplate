@@ -280,7 +280,8 @@ module.exports = function ( grunt ) {
         '<%= app_files.js %>'
       ],
       test: [
-        '<%= app_files.jsunit %>'
+        '<%= app_files.jsunit %>',
+        '<%= app_files.jse2e %>',        
       ],
       gruntfile: [
         'Gruntfile.js'
@@ -310,7 +311,8 @@ module.exports = function ( grunt ) {
       },
       test: {
         files: {
-          src: [ '<%= app_files.coffeeunit %>' ]
+          src: [ '<%= app_files.coffeeunit %>' ],
+          src: [ '<%= app_files.coffeee2e %>' ]
         }
       }
     },
