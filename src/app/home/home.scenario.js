@@ -24,10 +24,10 @@ describe( 'Navigate to home page', function() {
     expect(homePage.readme.getText()).toEqual('Read the Docs');
     expect(homePage.gitHub.getText()).toEqual('Github');
     expect(homePage.support.getText()).toEqual('Support');
-    expect(browser.getTitle()).toEqual('ng-boilerplate | home');
+    expect(browser.getTitle()).toEqual('Home | ngBoilerplate');
     
-    homePage.clickAbout();
+    homePage.about.click();
     
-    expect(browser.getTitle()).toEqual('ng-boilerplate | about');    
+    expect(browser.getTitle()).toEqual('What is It? | ngBoilerplate');    
   }); 
 });
