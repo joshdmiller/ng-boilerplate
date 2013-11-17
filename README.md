@@ -76,6 +76,7 @@ At a high level, the structure looks roughly like this:
 ng-boilerplate/
   |- grunt-tasks/
   |- karma/
+  |- protractor/
   |- src/
   |  |- app/
   |  |  |- <app logic>
@@ -102,7 +103,8 @@ What follows is a brief description of each entry, but most directories contain
 their own `README.md` file with additional documentation, so browse around to
 learn more.
 
-- `karma/` - test configuration.
+- `karma/` - unit test configuration.
+- `protractor/` - e2e test configuration.
 - `src/` - our application sources. [Read more &raquo;](src/README.md)
 - `vendor/` - third-party libraries. [Bower](http://bower.io) will install
   packages here. Anything added to this directory will need to be manually added
@@ -222,6 +224,14 @@ ordinarily take.
 In addition, if you're running a Live Reload plugin in your browser (see below),
 you won't even have to refresh to see the changes! When the `watch` task detects
 a file change, it will reload the page for you. Sweet.
+
+To use the e2e tests, you'll need to serve your application through a web server
+of some sort.  Once you've done that, you need to update the protractor config
+to detail the url for that web server, and then you can run:
+
+```sh
+$ grunt e2e
+```
 
 When you're ready to push your app into production, just run the `compile`
 command:
