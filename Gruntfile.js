@@ -550,6 +550,34 @@ module.exports = function ( grunt ) {
         options: {
           livereload: false
         }
+      },
+
+      /**
+       * When a JavaScript e2e test file changes, we only want to lint it and
+       * run the unit tests. We don't want to do any live reloading.
+       */
+      jse2e: {
+        files: [
+          '<%= app_files.jse2e %>'
+        ],
+        tasks: [ 'jshint:test', 'karma:unit:run' ],
+        options: {
+          livereload: false
+        }
+      },
+
+      /**
+       * When a CoffeeScript e2e test file changes, we only want to lint it and
+       * run the unit tests. We don't want to do any live reloading.
+       */
+      coffeee2e: {
+        files: [
+          '<%= app_files.coffeee2e %>'
+        ],
+        tasks: [ 'coffeelint:test', 'karma:unit:run' ],
+        options: {
+          livereload: false
+        }
       }
     }
   };
