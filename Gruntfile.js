@@ -359,7 +359,8 @@ module.exports = function ( grunt ) {
         runnerPort: 9101,
         background: true
       },
-      continuous: {
+      runonce: {
+        runnerPort: 9101,
         singleRun: true
       }
     },
@@ -602,11 +603,15 @@ module.exports = function ( grunt ) {
   /**
    * The `build` task gets your app ready to run for development and testing.
    */
-  grunt.registerTask( 'build', [
+  grunt.registerTask( 'build', [ 'build_only', 'karma:runonce' ] );
+
+  /**
+   * The `build_only` task doesn't run karma:runonce, as doing so breaks watch
+   */
+  grunt.registerTask( 'build_only', [
     'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'recess:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
-    'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
-    'karma:continuous' 
+    'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig'
   ]);
 
   /**
