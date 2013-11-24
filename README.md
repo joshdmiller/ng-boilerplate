@@ -11,7 +11,8 @@ Install Node.js and then:
 ```sh
 $ git clone git://github.com/joshdmiller/ng-boilerplate
 $ cd ng-boilerplate
-$ sudo npm -g install grunt-cli karma bower
+$ sudo npm -g install grunt-cli karma bower protractor
+$ /usr/local/lib/node_modules/protractor/bin/install_selenium_standalone
 $ npm install
 $ bower install
 $ grunt watch
@@ -75,6 +76,7 @@ At a high level, the structure looks roughly like this:
 ng-boilerplate/
   |- grunt-tasks/
   |- karma/
+  |- protractor/
   |- src/
   |  |- app/
   |  |  |- <app logic>
@@ -101,7 +103,8 @@ What follows is a brief description of each entry, but most directories contain
 their own `README.md` file with additional documentation, so browse around to
 learn more.
 
-- `karma/` - test configuration.
+- `karma/` - unit test configuration.
+- `protractor/` - e2e test configuration.
 - `src/` - our application sources. [Read more &raquo;](src/README.md)
 - `vendor/` - third-party libraries. [Bower](http://bower.io) will install
   packages here. Anything added to this directory will need to be manually added
@@ -138,12 +141,20 @@ for the build system to find it, so they must be installed independently. Once
 you have Node.js installed, you can simply use `npm` to make it all happen:
 
 ```sh
-$ npm -g install grunt-cli karma bower
+$ npm -g install grunt-cli karma bower protractor
 ```
 
 If you're on Linux (like I am) then throw `sudo` in front of that command.  If
 you're on Windows, then you're on your own.
 
+```sh
+$ /usr/local/lib/node_modules/protractor/bin/install_selenium_standalone
+```
+
+This installs the selenium server, used for end-2-end testing.  Unfortunately this
+install script will be in a different location on each operating system, best
+advice is to watch the npm install command to see where it is on your machine.
+ 
 Next, you can either clone this repository using Git, download it as a zip file
 from GitHub, or merge the branch into your existing repository. Assuming you're
 starting from scratch, simply clone this repository using git:
@@ -213,6 +224,14 @@ ordinarily take.
 In addition, if you're running a Live Reload plugin in your browser (see below),
 you won't even have to refresh to see the changes! When the `watch` task detects
 a file change, it will reload the page for you. Sweet.
+
+To use the e2e tests, you'll need to serve your application through a web server
+of some sort.  Once you've done that, you need to update the protractor config
+to detail the url for that web server, and then you can run:
+
+```sh
+$ grunt e2e
+```
 
 When you're ready to push your app into production, just run the `compile`
 command:

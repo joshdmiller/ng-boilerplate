@@ -18,7 +18,8 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-html2js');
-
+  grunt.loadNpmTasks('grunt-protractor-runner');
+  
   /**
    * Load in our build configuration file.
    */
@@ -280,7 +281,8 @@ module.exports = function ( grunt ) {
         '<%= app_files.js %>'
       ],
       test: [
-        '<%= app_files.jsunit %>'
+        '<%= app_files.jsunit %>',
+        '<%= app_files.jse2e %>'        
       ],
       gruntfile: [
         'Gruntfile.js'
@@ -310,7 +312,8 @@ module.exports = function ( grunt ) {
       },
       test: {
         files: {
-          src: [ '<%= app_files.coffeeunit %>' ]
+          src: [ '<%= app_files.coffeeunit %>',
+                 '<%= app_files.coffeee2e %>' ]
         }
       }
     },
@@ -356,7 +359,8 @@ module.exports = function ( grunt ) {
         runnerPort: 9101,
         background: true
       },
-      continuous: {
+      runonce: {
+        runnerPort: 9101,
         singleRun: true
       }
     },
@@ -413,6 +417,18 @@ module.exports = function ( grunt ) {
           '<%= html2js.common.dest %>',
           '<%= test_files.js %>'
         ]
+      }
+    },
+    
+    protractor: {
+      options: {
+        configFile: "protractor/protractor-scenario.tpl.js", 
+        keepAlive: false, 
+        args: {
+          // Arguments passed to the command
+        }
+      },
+      e2eTests: {
       }
     },
 
@@ -535,6 +551,34 @@ module.exports = function ( grunt ) {
         options: {
           livereload: false
         }
+      },
+
+      /**
+       * When a JavaScript e2e test file changes, we only want to lint it and
+       * run the unit tests. We don't want to do any live reloading.
+       */
+      jse2e: {
+        files: [
+          '<%= app_files.jse2e %>'
+        ],
+        tasks: [ 'jshint:test', 'karma:unit:run' ],
+        options: {
+          livereload: false
+        }
+      },
+
+      /**
+       * When a CoffeeScript e2e test file changes, we only want to lint it and
+       * run the unit tests. We don't want to do any live reloading.
+       */
+      coffeee2e: {
+        files: [
+          '<%= app_files.coffeee2e %>'
+        ],
+        tasks: [ 'coffeelint:test', 'karma:unit:run' ],
+        options: {
+          livereload: false
+        }
       }
     }
   };
@@ -559,11 +603,15 @@ module.exports = function ( grunt ) {
   /**
    * The `build` task gets your app ready to run for development and testing.
    */
-  grunt.registerTask( 'build', [
+  grunt.registerTask( 'build', [ 'build_only', 'karma:runonce' ] );
+
+  /**
+   * The `build_only` task doesn't run karma:runonce, as doing so breaks watch
+   */
+  grunt.registerTask( 'build_only', [
     'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'recess:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
-    'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
-    'karma:continuous' 
+    'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig'
   ]);
 
   /**
@@ -572,6 +620,10 @@ module.exports = function ( grunt ) {
    */
   grunt.registerTask( 'compile', [
     'recess:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile'
+  ]);
+
+  grunt.registerTask( 'e2e', [
+    'build', 'protractor'
   ]);
 
   /**
