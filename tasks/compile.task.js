@@ -1,28 +1,28 @@
-var ngbp = require( '../index' );
+var NGBP = require( './../lib/ngbp' );
 var MOUT = require( 'mout' );
 
 /**
  * The NGBP Grunt task definition.
  */
-module.exports = function ( grunt ) {
+module.exports = function ( GRUNT ) {
   /**
    * Perform the precompile, compile, and postcompile tasks according to the priority
    * with which they registered.
    */
-  grunt.registerTask( 'ngbp-compile', function () {
+  GRUNT.registerTask( 'ngbp-compile', function () {
     var done = this.async();
 
-    ngbp.task.prepareTaskList()
+    NGBP.task.prepareTaskList()
     .then( function () {
       var compile_steps = [ 'precompile', 'compile', 'postcompile' ];
-      var hooks = ngbp.task.getHooks();
+      var hooks = NGBP.task.getHooks();
 
       compile_steps.forEach( function forEachBuildStep ( step ) {
-        ngbp.task.runTasks( hooks[ step ] );
+        NGBP.task.queueTasks( hooks[ step ].map( function ( t ) { return t.taskName; } ) );
       });
 
       done();
-    });
+    }).catch( NGBP.log.fatal );
   });
 };
 
