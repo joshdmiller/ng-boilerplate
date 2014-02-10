@@ -240,7 +240,7 @@ module.exports = function ( grunt ) {
     /**
      * `grunt-contrib-less` handles our LESS compilation and uglification automatically.
      * Only our `main.less` file is included in compilation; all other files
-     * must be imported from this file.
+     * must be imported from this file. For further options see https://github.com/gruntjs/grunt-contrib-less
      */
     less: {
       build: {
