@@ -576,11 +576,12 @@ module.exports = function ( grunt ) {
   }
 
   /**
-   * A utility function to get all app CSS sources.
+   * A utility function to get all app CSS sources. Except only files that contain
+   * '.css' substring and do not contain 'vendor' substring
    */
   function filterForCSS ( files ) {
     return files.filter( function ( file ) {
-      return file.match( /\.css$/ );
+      return file.match(/^(?=.*.css)((?!vendor).)*$/);
     });
   }
 
