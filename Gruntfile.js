@@ -11,6 +11,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-conventional-changelog');
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-coffeelint');
@@ -267,6 +268,19 @@ module.exports = function ( grunt ) {
       }
     },
 
+    less: {
+      build: {
+        options: {
+          strictMath: true,
+          sourceMap: false,
+          outputSourceFiles: true
+        },
+        files: {
+          '<%= recess.build.dest %>': '<%= app_files.less %>'
+        }
+      }
+    },
+
     /**
      * `jshint` defines the rules of our linter as well as which files we
      * should check. This file, all javascript sources, and all our unit tests
@@ -506,7 +520,7 @@ module.exports = function ( grunt ) {
        */
       less: {
         files: [ 'src/**/*.less' ],
-        tasks: [ 'recess:build' ]
+        tasks: [ 'less:build' ]
       },
 
       /**
@@ -560,7 +574,7 @@ module.exports = function ( grunt ) {
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'recess:build',
+    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
     'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
     'karma:continuous' 
