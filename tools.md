@@ -149,7 +149,7 @@ $ grunt default
 ```
 
 We also define the `watch` task discussed earlier. This is covered in more
-detail in the main (README)[README.md].
+detail in the main [README.md](README).
 
 Grunt is the engine behind `ngBoilerplate`. It's the magic that makes it move.
 Just getting started, you won't need to alter `Gruntfile.js` at all, but
