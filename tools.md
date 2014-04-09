@@ -70,7 +70,7 @@ so it can re-build our site on-the-fly:
 $ grunt watch
 ```
 
-The built files will be in `build/`. See the main [README](README.md) for more
+The built files will be in `build/`. See the [main README](README.md) for more
 info.
 
 The next time we change a source file, Grunt will re-build the changed parts of
