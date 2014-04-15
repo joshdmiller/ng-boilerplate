@@ -8,5 +8,12 @@
     "angular-bootstrap": "~0.10.0",
     "angular-ui-router": "~0.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "moment": "~2.9.0",
+    "angular-moment": "~0.9.0",
+    "restangular": "~1.4.0",
+    "underscore": "~1.7.0",
+    "angular-loading-bar": "~0.6.0",
+    "jshashes": "~1.0.5"
+  }
 }

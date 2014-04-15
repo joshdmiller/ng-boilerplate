@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 thumb" ng-repeat="member in ctrl.members">
+      <a class="thumbnail">
+       <img class="img-responsive" ng-src="{{member.person.imageUrl}}">
+       <div class="caption text-center" >
+        {{member.person.name}}
+      </div>
+    </a>
+    </div>
+  </div>
+</div>

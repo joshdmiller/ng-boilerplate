@@ -12,9 +12,9 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'ngBoilerplate.home', [
+angular.module( 'hermes.home', [
   'ui.router',
-  'plusOne'
+  'pivotal'
 ])
 
 /**
@@ -22,13 +22,16 @@ angular.module( 'ngBoilerplate.home', [
  * will handle ensuring they are all available at run-time, but splitting it
  * this way makes each module more "self-contained".
  */
-.config(function config( $stateProvider ) {
+.config(function config( $stateProvider) {
+
+
   $stateProvider.state( 'home', {
     url: '/home',
     views: {
       "main": {
         controller: 'HomeCtrl',
-        templateUrl: 'home/home.tpl.html'
+        templateUrl: 'home/home.tpl.html',
+        controllerAs: 'ctrl'
       }
     },
     data:{ pageTitle: 'Home' }
@@ -38,7 +41,12 @@ angular.module( 'ngBoilerplate.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope ) {
+.controller( 'HomeCtrl', function HomeController(Pivotal ) {
+ 
+  var self = this;
+  Pivotal.projects.all().then(function(projects){
+    self.projects = projects;
+  });
 })
 
 ;
