@@ -312,6 +312,35 @@ uploading to the server! - is located in `bin/`, taking a cue from
 traditional software development. To test that your full site works as
 expected, open the `bin/index.html` file in your browser. Voila!
 
+### Viewing your application via http:
+
+Start your built in webbrowser with:
+
+```sh
+node_modules/http-server/bin/http-server -a localhost -p 8000
+```
+
+You will then be able to view your app in this url:
+
+    [http://localhost:8000/build/index.html](http://localhost:8000/build/index.html)
+
+### e2e testing
+
+The end-to-end testing configuration requires setting up the webdriver by
+running this one-off command:
+
+```sh
+node_modules/protractor/bin/webdriver-manager update
+```
+
+Once webdriver is installed you can run e2e tests with:
+
+```sh
+node_modules/protractor/bin/protractor e2e/protractor-conf.js
+```
+
+Note that the format of e2e testing is likely to change with the 0.4 release.
+
 ### Live Reload!
 
 `ngBoilerplate` also includes [Live Reload](http://livereload.com/), so you no
@@ -357,6 +386,9 @@ is one of those, but just something that allows the user to say "I want
 Bootstrap but not Font Awesome and my app is called 'coolApp'. Gimme." Perhaps a
 custom download builder like UI Bootstrap has. Like that. Then again, perhaps
 some Yeoman generators wouldn't be out of line. I don't know. What do you think?
+
+The e2e testing is a bit rough - but included by popular demand. The 0.4
+release will have a much smoother experience!
 
 Naturally, I am open to all manner of ideas and suggestions. See the
 "Contributing" section below.
