@@ -18,6 +18,8 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-less-imports');
+
 
   /**
    * Load in our build configuration file.
@@ -237,10 +239,21 @@ module.exports = function ( grunt ) {
       }
     },
 
+
+    /* 
+	Less_imports auto concats all css files from any module.	
+	https://github.com/ngbp/ngbp/issues/158 */
+    less_imports: {
+            build: {
+                options: {
+                },
+                src: ['src/less/main.less', 'src/**/*.less', '!src/less/variables.less', '!src/less/master.less'],
+                dest: 'src/less/master.less'
+            }
+      },
+
     /**
      * `grunt-contrib-less` handles our LESS compilation and uglification automatically.
-     * Only our `main.less` file is included in compilation; all other files
-     * must be imported from this file.
      */
     less: {
       build: {
@@ -498,7 +511,7 @@ module.exports = function ( grunt ) {
        */
       less: {
         files: [ 'src/**/*.less' ],
-        tasks: [ 'less:build' ]
+        tasks: [ 'less_imports:build','less:build' ]
       },
 
       /**
@@ -552,7 +565,7 @@ module.exports = function ( grunt ) {
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
+    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less_imports:build','less:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
     'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
     'karma:continuous' 
