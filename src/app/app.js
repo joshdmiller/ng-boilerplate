@@ -6,7 +6,8 @@ angular.module( 'ngBoilerplate', [
   'ui.router'
 ])
 
-.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
+.config( function myAppConfig ( $stateProvider, $urlRouterProvider, $locationProvider ) {
+  $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise( '/home' );
 })
 
