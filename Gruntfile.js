@@ -132,7 +132,7 @@ module.exports = function ( grunt ) {
       build_vendorjs: {
         files: [
           {
-            src: [ '<%= vendor_files.js %>' ],
+            src: [ '<%= vendor_files.js %>','<%= vendor_files.css %>' ],
             dest: '<%= build_dir %>/',
             cwd: '.',
             expand: true
