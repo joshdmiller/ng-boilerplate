@@ -294,8 +294,8 @@ module.exports = function ( grunt ) {
         'Gruntfile.js'
       ],
       options: {
-        smarttabs:true,
-        laxcomma: true,
+        //smarttabs:true,
+        //laxcomma: true,
         curly: true,
         immed: true,
         newcap: true,
