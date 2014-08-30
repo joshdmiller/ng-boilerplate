@@ -132,7 +132,17 @@ module.exports = function ( grunt ) {
       build_vendorjs: {
         files: [
           {
-            src: [ '<%= vendor_files.js %>','<%= vendor_files.css %>' ],
+            src: [ '<%= vendor_files.js %>' ],
+            dest: '<%= build_dir %>/',
+            cwd: '.',
+            expand: true
+          }
+        ]
+      },
+      build_vendorcss: {
+        files: [
+          {
+            src: [ '<%= vendor_files.css %>' ],
             dest: '<%= build_dir %>/',
             cwd: '.',
             expand: true
@@ -145,6 +155,12 @@ module.exports = function ( grunt ) {
             src: [ '**' ],
             dest: '<%= compile_dir %>/assets',
             cwd: '<%= build_dir %>/assets',
+            expand: true
+          },
+          {
+            src: [ '<%= vendor_files.css %>' ],
+            dest: '<%= compile_dir %>/',
+            cwd: '.',
             expand: true
           }
         ]
@@ -278,6 +294,8 @@ module.exports = function ( grunt ) {
         'Gruntfile.js'
       ],
       options: {
+        smarttabs:true,
+        laxcomma: true,
         curly: true,
         immed: true,
         newcap: true,
@@ -554,7 +572,7 @@ module.exports = function ( grunt ) {
   grunt.registerTask( 'build', [
     'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
-    'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
+    'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build', 'karmaconfig',
     'karma:continuous' 
   ]);
 
