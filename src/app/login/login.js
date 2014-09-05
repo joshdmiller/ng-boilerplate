@@ -14,5 +14,5 @@ angular.module( 'ngBoilerplate.login', [
   });
 })
 .controller( 'LoginCtrl', function HomeController( $scope ) {
-
+  
 });

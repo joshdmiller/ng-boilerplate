@@ -1,1 +1,44 @@
-<h3>Must show the registration page.</h3>
+<form name="form">
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-male"></i>
+			</div>
+			<input type="text" class="form-control input-lg" ng-model="fullname" placeholder="Full name">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-envelope"></i>
+			</div>
+			<input type="email" class="form-control input-lg" ng-model="email" placeholder="Email">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-user"></i>
+			</div>
+			<input type="text" class="form-control input-lg" ng-model="username" placeholder="Username">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-lock"></i>
+			</div>
+			<input type="password" class="form-control input-lg" ng-model="password" placeholder="Password">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-lock"></i>
+			</div>
+			<input type="password" class="form-control input-lg" ng-model="passwordcheck" placeholder="Confirm password">
+		</div>
+	</div>
+	<p>Passwords matches? <em>{{ !!form.passwordcheck.$error.validator }}</em></p>
+	<button class="btn btn-primary btn-lg">Sign in</button>
+</form>
