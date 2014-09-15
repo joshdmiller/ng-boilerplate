@@ -18,6 +18,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-less-imports');
 
 
@@ -282,8 +283,7 @@ module.exports = function ( grunt ) {
      */
     jshint: {
       src: [ 
-        '<%= app_files.js %>'
-      ],
+             ],
       test: [
         '<%= app_files.jsunit %>'
       ],
@@ -291,13 +291,20 @@ module.exports = function ( grunt ) {
         'Gruntfile.js'
       ],
       options: {
-        curly: true,
-        immed: true,
+        curly: false,
+        immed: false,
         newcap: true,
         noarg: true,
         sub: true,
         boss: true,
-        eqnull: true
+        debug:true,
+        eqnull: true,
+        laxbreak:true,
+        expr:true,
+          asi:true,
+          smarttabs:true,
+          "-W099": true,
+          "-W018":true
       },
       globals: {}
     },
@@ -348,6 +355,19 @@ module.exports = function ( grunt ) {
         src: [ '<%= app_files.ctpl %>' ],
         dest: '<%= build_dir %>/templates-common.js'
       }
+    },
+
+
+    express: {
+        devServer: {
+            options: {
+                port: 9000,
+                hostname: 'localhost',
+                serverreload: false,
+                bases: 'build',
+                livereload: true
+            }
+        }
     },
 
     /**
@@ -482,7 +502,8 @@ module.exports = function ( grunt ) {
        */
       assets: {
         files: [ 
-          'src/assets/**/*'
+          ['src/assets/**/*']
+
         ],
         tasks: [ 'copy:build_app_assets', 'copy:build_vendor_assets' ]
       },
@@ -554,7 +575,7 @@ module.exports = function ( grunt ) {
    * before watching for changes.
    */
   grunt.renameTask( 'watch', 'delta' );
-  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
+  grunt.registerTask( 'watch', [ 'build', 'karma:unit','express', 'delta' ] );
 
   /**
    * The default task is to build and compile.
@@ -611,6 +632,7 @@ module.exports = function ( grunt ) {
     var cssFiles = filterForCSS( this.filesSrc ).map( function ( file ) {
       return file.replace( dirRE, '' );
     });
+
 
     grunt.file.copy('src/index.html', this.data.dir + '/index.html', { 
       process: function ( contents, path ) {
