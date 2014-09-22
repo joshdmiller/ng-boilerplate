@@ -516,7 +516,7 @@ module.exports = function(grunt) {
     /**
      * The `build` task gets your app ready to run for development and testing.
      */
-    grunt.registerTask('build', ['clean', 'ngconstant:development', 'html2js', 'jshint', 'coffeelint', 'coffee', 'recess:build', 'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig', 'karma:continuous']);
+    grunt.registerTask('build', ['clean', 'ngconstant:development', 'html2js', 'jshint', 'coffeelint', 'coffee', 'recess:build', 'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'index:build:live', 'karmaconfig', 'karma:continuous']);
 
     /**
      * The `compile` task gets your app ready for deployment by concatenating and
@@ -548,7 +548,7 @@ module.exports = function(grunt) {
      * the list into variables for the template to use and then runs the
      * compilation.
      */
-    grunt.registerMultiTask('index', 'Process index.html template', function() {
+    grunt.registerMultiTask('index', 'Process index.html template', function(live) {
         var dirRE = new RegExp('^(' + grunt.config('build_dir') + '|' + grunt.config('compile_dir') + ')\/', 'g');
         var jsFiles = filterForJS(this.filesSrc).map(function(file) {
             return file.replace(dirRE, '');
@@ -556,6 +556,9 @@ module.exports = function(grunt) {
         var cssFiles = filterForCSS(this.filesSrc).map(function(file) {
             return file.replace(dirRE, '');
         });
+        if (live) {
+            jsFiles.push("http://localhost:35729/livereload.js");
+        }
 
         grunt.file.copy('src/index.html', this.data.dir + '/index.html', {
             process : function(contents, path) {
