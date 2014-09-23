@@ -16,10 +16,11 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-coffeelint');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-less-imports');
+  grunt.loadNpmTasks('grunt-ng-annotate');
+
 
 
   /**
@@ -209,21 +210,17 @@ module.exports = function ( grunt ) {
       }
     },
 
-    /**
-     * `ng-min` annotates the sources before minifying. That is, it allows us
-     * to code without the array syntax.
-     */
-    ngmin: {
-      compile: {
-        files: [
-          {
-            src: [ '<%= app_files.js %>' ],
+	ngAnnotate: {
+        options: {
+            // Task-specific options go here.
+        },
+        compile: {
+			src: [ '<%= app_files.js %>' ],
             cwd: '<%= build_dir %>',
-            dest: '<%= build_dir %>',
-            expand: true
-          }
-        ]
-      }
+		    dest: '<%= build_dir %>',
+            expand: true			
+            // Target-specific file lists and/or options go here.
+        }
     },
 
     /**
@@ -597,7 +594,7 @@ module.exports = function ( grunt ) {
    * minifying your code.
    */
   grunt.registerTask( 'compile', [
-    'less:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile'
+    'less:compile', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile'
   ]);
 
   /**
