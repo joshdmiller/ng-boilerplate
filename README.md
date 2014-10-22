@@ -50,7 +50,7 @@ These are:
   staying out of the way. Components should end up tested, linted, compiled,
   and minified, ready for use in a production environment.
 - Integration with popular tools like Bower, Karma, and LESS.
-- *Encourages* test-driven development. It's the only way to code.
+- *Encourages* test-driven development, if you're into that kinda thing.
 - A directory structure that is cogent, meaningful to new team members, and
   supporting of the above points.
 - Well-documented, to show new developers *why* things are set up the way they
