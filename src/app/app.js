@@ -3,6 +3,7 @@ angular.module( 'ngBoilerplate', [
   'templates-common',
   'ngBoilerplate.home',
   'ngBoilerplate.about',
+  'ngBoilerplate.modalTest',
   'ui.router'
 ])
 

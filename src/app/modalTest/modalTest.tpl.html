@@ -1,0 +1,192 @@
+<!--<script src="https://code.angularjs.org/1.2.9/angular.min.js"></script>-->
+<!--<script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>-->
+
+<!--<div class="container" ng-controller="Controller">
+
+    <h3>Angular Modal Service</h3>
+     <a class="btn btn-default" href ng-click="show()">Show a Modal</a>
+     <p>{{message}}</p>
+     
+      The actual modal template, just a bit o bootstrap 
+     <script type="text/ng-template" id="modal.html">
+         <div class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Yes or No?</h4>
+              </div>
+              <div class="modal-body">
+                <p>It's your call...</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Yes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+     </script>    
+</div>-->
+  <div ng-controller="SampleController" data-spy="scroll" data-target="#mainNav">
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>Angular Modal Service Samples</h1>
+        <p class="lead">Samples for <a href="https://github.com/dwmkerr/angular-modal-service">the only Angular Modal Service you'll ever need</a>.</p>
+      </div>
+
+      <hr />
+
+      <a id="yesno"></a>
+      <div class="sample">
+      <h3>A Simple Yes/No Modal</h3>
+
+      <p>This sample shows a Bootstrap Modal with the options 'Yes' and 'No'.</p>
+      <p>It demonstrates how to show a Bootstrap Modal, how to show a modal and how
+      to retrieve data from the modal.</p>
+
+      <p><a href class="btn btn-default btn-lg " ng-click="showYesNo()">Show Yes No</a></p>
+
+      <pre ng-show="yesNoResult">{{yesNoResult}}</pre>
+      <p>See the code that makes up this sample:</p>
+      <ul>
+      <li>The Modal Template - <a href="https://github.com/dwmkerr/angular-modal-service/blob/master/samples/yesno/yesno.html">yesno.html</a></li>
+      <li>The Modal Controller - <a href="https://github.com/dwmkerr/angular-modal-service/blob/master/samples/yesno/yesnocontroller.js">yesnocontroller.js</a></li>
+      <li>The Sample Controller (see 'showYesNo') - <a href="https://github.com/dwmkerr/angular-modal-service/blob/master/samples/sampleapp.js#L10">sampleapp.js</a></li>
+      </ul>
+      </div>
+
+      <hr />
+
+      <a id="complex"></a>
+      <div class="sample">
+      <h3>A Complex Modal</h3>
+
+      <p>This more complicated modal contains a form, showing how the modal template can
+      be customised. It also has a controller with data injected by the caller and 
+      returns more complex data.</p>
+      
+      <p><a href class="btn btn-default btn-lg " ng-click="showComplex()">Show Complex</a></p>
+
+      <pre ng-show="complexResult">{{complexResult}}</pre>
+      <p>See the code that makes up this sample:</p>
+      <ul>
+      <li>The Modal Template - <a href="https://github.com/dwmkerr/angular-modal-service/blob/master/samples/complex/complex.html">complex.html</a></li>
+      <li>The Modal Controller - <a href="https://github.com/dwmkerr/angular-modal-service/blob/master/samples/complex/complexcontroller.js">complexcontroller.js</a></li>
+      <li>The Sample Controller (see 'showComplex') - <a href="https://github.com/dwmkerr/angular-modal-service/blob/master/samples/sampleapp.js#L24">sampleapp.js</a></li>
+      </ul>
+      </div>
+
+      <hr />
+
+      <a id="custom"></a>
+      <div class="sample">
+      <h3>A Custom Modal</h3>
+
+      <p>This sample shows how you can use any kind of modal, not just Bootstrap modals.</p>
+      
+      <p><a href class="btn btn-default btn-lg " ng-click="showCustom()">Show Custom</a></p>
+
+      <pre ng-show="customResult">{{customResult}}</pre>
+      <p>See the code that makes up this sample:</p>
+      <ul>
+      <li>The Modal Template - <a href="https://github.com/dwmkerr/angular-modal-service/blob/master/samples/custom/custom.html">custom.html</a></li>
+      <li>The Modal Controller - <a href="https://github.com/dwmkerr/angular-modal-service/blob/master/samples/custom/customcontroller.js">customcontroller.js</a></li>
+      <li>The Sample Controller (see 'showCustom') - <a href="https://github.com/dwmkerr/angular-modal-service/blob/master/samples/sampleapp.js#L41">sampleapp.js</a></li>
+      </ul>
+      </div>
+
+
+    </div>
+      
+     <script type="text/ng-template" id="yesno.html">
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close(false)" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Yes or No?</h4>
+      </div>
+      <div class="modal-body">
+        <p>It's your call...</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="close(false)" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" ng-click="close(true)" class="btn btn-primary" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+     </script>   
+           <script type="text/ng-template" id="complex.html">
+        <div class="modal fade">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{title}}</h4>
+              </div>
+              <div class="modal-body">
+                <p>Here's a more complex modal, it contains a form, data is passed to the controller 
+                 and data is returned from the modal.</p>
+
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="name" placeholder="Your Name" ng-model="name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="age" class="col-sm-2 control-label">Age</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" id="inputPassword3" placeholder="Age" ng-model="age">
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+     </script>  
+           <script type="text/ng-template" id="custom.html">
+        <style type="text/css">
+        #overlay {
+            position: fixed;
+            left: 25%;
+            top: 25%;
+            padding: 25px; 
+            border: 2px solid black;
+            background-color: #ffffff;
+            width: 50%;
+            height: 50%;
+            z-index: 100;
+        }
+        #fade {
+            position: fixed;
+            left: 0%;
+            top: 0%;
+            background-color: black;
+            -moz-opacity: 0.7;
+            opacity: .70;
+            filter: alpha(opacity=70);
+            width: 100%;
+            height: 100%;
+            z-index: 90;
+        }
+        </style>
+        <div id="overlay" ng-show="display">
+            This is a custom modal. The angular-modal-service doesn't depend on bootstrap, you
+            can use any modal you want.
+            <a href ng-click="close()">Close</a>
+        </div>
+        <div id="fade" ng-show="display"></div>
+     </script>  
+
+  </div>
