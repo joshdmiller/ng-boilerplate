@@ -19,6 +19,8 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-html2js');
 
+  require('time-grunt')(grunt);
+
   /**
    * Load in our build configuration file.
    */
