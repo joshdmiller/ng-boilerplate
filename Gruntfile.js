@@ -16,8 +16,12 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-coffeelint');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-express');
+  grunt.loadNpmTasks('grunt-less-imports');
+  grunt.loadNpmTasks('grunt-ng-annotate');
+
+
 
   /**
    * Load in our build configuration file.
@@ -222,21 +226,17 @@ module.exports = function ( grunt ) {
       }
     },
 
-    /**
-     * `ng-min` annotates the sources before minifying. That is, it allows us
-     * to code without the array syntax.
-     */
-    ngmin: {
-      compile: {
-        files: [
-          {
-            src: [ '<%= app_files.js %>' ],
+	ngAnnotate: {
+        options: {
+            // Task-specific options go here.
+        },
+        compile: {
+			src: [ '<%= app_files.js %>' ],
             cwd: '<%= build_dir %>',
-            dest: '<%= build_dir %>',
-            expand: true
-          }
-        ]
-      }
+		    dest: '<%= build_dir %>',
+            expand: true			
+            // Target-specific file lists and/or options go here.
+        }
     },
 
     /**
@@ -253,10 +253,21 @@ module.exports = function ( grunt ) {
       }
     },
 
+
+    /* 
+	Less_imports auto concats all css files from any module.	
+	https://github.com/ngbp/ngbp/issues/158 */
+    less_imports: {
+            build: {
+                options: {
+                },
+                src: ['src/less/main.less', 'src/**/*.less', '!src/less/variables.less', '!src/less/master.less'],
+                dest: 'src/less/master.less'
+            }
+      },
+
     /**
      * `grunt-contrib-less` handles our LESS compilation and uglification automatically.
-     * Only our `main.less` file is included in compilation; all other files
-     * must be imported from this file.
      */
     less: {
       build: {
@@ -285,8 +296,7 @@ module.exports = function ( grunt ) {
      */
     jshint: {
       src: [ 
-        '<%= app_files.js %>'
-      ],
+             ],
       test: [
         '<%= app_files.jsunit %>'
       ],
@@ -294,13 +304,20 @@ module.exports = function ( grunt ) {
         'Gruntfile.js'
       ],
       options: {
-        curly: true,
-        immed: true,
+        curly: false,
+        immed: false,
         newcap: true,
         noarg: true,
         sub: true,
         boss: true,
-        eqnull: true
+        debug:true,
+        eqnull: true,
+        laxbreak:true,
+        expr:true,
+          asi:true,
+          smarttabs:true,
+          "-W099": true,
+          "-W018":true
       },
       globals: {}
     },
@@ -351,6 +368,19 @@ module.exports = function ( grunt ) {
         src: [ '<%= app_files.ctpl %>' ],
         dest: '<%= build_dir %>/templates-common.js'
       }
+    },
+
+
+    express: {
+        devServer: {
+            options: {
+                port: 9000,
+                hostname: 'localhost',
+                serverreload: false,
+                bases: 'build',
+                livereload: true
+            }
+        }
     },
 
     /**
@@ -485,7 +515,8 @@ module.exports = function ( grunt ) {
        */
       assets: {
         files: [ 
-          'src/assets/**/*'
+          ['src/assets/**/*']
+
         ],
         tasks: [ 'copy:build_app_assets', 'copy:build_vendor_assets' ]
       },
@@ -514,7 +545,7 @@ module.exports = function ( grunt ) {
        */
       less: {
         files: [ 'src/**/*.less' ],
-        tasks: [ 'less:build' ]
+        tasks: [ 'less_imports:build','less:build' ]
       },
 
       /**
@@ -557,7 +588,7 @@ module.exports = function ( grunt ) {
    * before watching for changes.
    */
   grunt.renameTask( 'watch', 'delta' );
-  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
+  grunt.registerTask( 'watch', [ 'build', 'karma:unit','express', 'delta' ] );
 
   /**
    * The default task is to build and compile.
@@ -568,7 +599,7 @@ module.exports = function ( grunt ) {
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
+    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less_imports:build','less:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
     'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build', 'karmaconfig',
     'karma:continuous' 
@@ -579,7 +610,7 @@ module.exports = function ( grunt ) {
    * minifying your code.
    */
   grunt.registerTask( 'compile', [
-    'less:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile'
+    'less:compile', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile'
   ]);
 
   /**
@@ -614,6 +645,7 @@ module.exports = function ( grunt ) {
     var cssFiles = filterForCSS( this.filesSrc ).map( function ( file ) {
       return file.replace( dirRE, '' );
     });
+
 
     grunt.file.copy('src/index.html', this.data.dir + '/index.html', { 
       process: function ( contents, path ) {
