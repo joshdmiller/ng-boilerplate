@@ -164,7 +164,7 @@ This will read the `dependencies` (empty by default) and the `devDependencies`
 everything needed into a folder called `node_modules/`.
 
 There are many Bower packages used by `ngBoilerplate`, like Twitter Bootstrap
-and Angular UI, which are listed in `bower.js`. To install them into the
+and Angular UI, which are listed in `bower.json`. To install them into the
 `vendor/` directory, simply run:
 
 ```sh
@@ -179,7 +179,7 @@ $ bower install packagename --save-dev
 ```
 
 The `--save-dev` flag tells Bower to add the package at its current version to
-our project's `bower.js` file so should another developer download our
+our project's `bower.json` file so should another developer download our
 application (or we download it from a different computer), we can simply run the
 `bower install` command as above and all our dependencies will be installed for
 us. Neat!
