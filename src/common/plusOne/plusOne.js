@@ -1,4 +1,6 @@
-angular.module( 'plusOne', [] )
+import 'angular';
+
+export default angular.module( 'plusOne', [] )
 
 .directive( 'plusOne', function() {
   return {

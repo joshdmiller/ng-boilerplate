@@ -19,17 +19,19 @@ src/
   |  |- main.less
   |  |- variables.less
   |- index.html
+  |- system.config.js
 ```
 
 - `src/app/` - application-specific code, i.e. code not likely to be reused in
   another application. [Read more &raquo;](app/README.md)
-- `src/assets/` - static files like fonts and images. 
+- `src/assets/` - static files like fonts and images.
   [Read more &raquo;](assets/README.md)
 - `src/common/` - third-party libraries or components likely to be reused in
   another application. [Read more &raquo;](common/README.md)
 - `src/less/` - LESS CSS files. [Read more &raquo;](less/README.md)
 - `src/index.html` - this is the HTML document of the single-page application.
   See below.
+- `src/system.config.js` - SystemJS configuration for loading modules.
 
 See each directory for a detailed explanation.
 

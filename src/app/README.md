@@ -9,6 +9,7 @@ src/
   |  |- about/
   |  |- app.js
   |  |- app.spec.js
+  |  |- app.ctrl.js
 ```
 
 The `src/app` directory contains all code specific to this application. Apart
@@ -74,16 +75,30 @@ have been instantiated.
 ```
 
 And then we define our main application controller. This is a good place for logic
-not specific to the template or route, such as menu logic or page title wiring.
+not specific to the template or route, such as menu logic or page title wiring. It's
+imported from `app.ctrl.js` (see below).
 
 ```js
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
-  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-    if ( angular.isDefined( toState.data.pageTitle ) ) {
-      $scope.pageTitle = toState.data.pageTitle + ' | ngBoilerplate' ;
-    }
-  });
-})
+.controller( 'AppCtrl', AppCtrl )
+```
+
+## `app.ctrl.js`
+
+This is an example of an ES6 class being used as an AngularJS controller, without
+directly referencing the `angular` object.
+
+```js
+class AppCtrl {
+  constructor($scope) {
+    $scope.$on('$stateChangeSuccess', (event, toState) => {
+      if (angular.isDefined(toState.data.pageTitle)) {
+        $scope.pageTitle = toState.data.pageTitle + ' | ngBoilerplate';
+      }
+    });
+  }
+}
+AppCtrl.$inject = ['$scope'];
+export default AppCtrl;
 ```
 
 ### Testing

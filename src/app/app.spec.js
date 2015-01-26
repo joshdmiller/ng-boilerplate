@@ -1,8 +1,11 @@
+import './app';
+import 'angular-mocks';
+
 describe( 'AppCtrl', function() {
   describe( 'isCurrentUrl', function() {
     var AppCtrl, $location, $scope;
 
-    beforeEach( module( 'ngBoilerplate' ) );
+    beforeEach( angular.mock.module( 'ngBoilerplate' ) );
 
     beforeEach( inject( function( $controller, _$location_, $rootScope ) {
       $location = _$location_;

@@ -92,8 +92,6 @@ ng-boilerplate/
   |- bower.json
   |- build.config.js
   |- Gruntfile.js
-  |- module.prefix
-  |- module.suffix
   |- package.json
 ```
 
@@ -114,9 +112,6 @@ learn more.
 - `build.config.js` - our customizable build settings; see "The Build System"
   below.
 - `Gruntfile.js` - our build script; see "The Build System" below.
-- `module.prefix` and `module.suffix` - our compiled application script is
-  wrapped in these, which by default are used to place the application inside a
-  self-executing anonymous function to ensure no clashes with other libraries.
 - `package.json` - metadata about the app, used by NPM and our build script. Our
   NPM dependencies are listed here.
 
@@ -197,10 +192,9 @@ To ensure your setup works, launch grunt:
 $ grunt watch
 ```
 
-The built files are placed in the `build/` directory by default. Open the
-`build/index.html` file in your browser and check it out! Because everything is
-compiled, no XHR requests are needed to retrieve templates, so until this needs
-to communicate with your backend there is no need to run it from a web server.
+The built files are placed in the `build/` directory by default. You can view
+the application by starting a web server with `$ npm start` then opening
+[http://localhost:8000/build/index.html](http://localhost:8000/build/index.html)
 
 `watch` is actually an alias of the `grunt-contrib-watch` that will first run a
 partial build before watching for file changes. With this setup, any file that
@@ -221,12 +215,12 @@ command:
 $ grunt compile
 ```
 
-This will concatenate and minify your sources and place them by default into the
+This will bundle and minify your modules and place them by default into the
 `bin/` directory. There will only be three files: `index.html`,
-`your-app-name.js`, and `your-app-name.css`. All of the vendor dependencies like
-Bootstrap styles and AngularJS itself have been added to them for super-easy
-deploying. If you use any assets (`src/assets/`) then they will be copied to
-`bin/` as is.
+`your-app-name.js`, and `your-app-name.css`. All of the vendor dependencies
+(except traceur-runtime) like Bootstrap styles and AngularJS itself have been
+added to them for super-easy deploying. If you use any assets (`src/assets/`)
+then they will be copied to `bin/` as is.
 
 Lastly, a complete build is always available by simply running the default
 task, which runs `build` and then `compile`:
@@ -260,24 +254,8 @@ changes:
 * `delta:jssrc` - When any JavaScript file within `src/` that does not end in
   `.spec.js` changes, all JavaScript sources are linted, all unit tests are run,
   and the all source files are re-copied to `build/src`.
-* `delta:coffeesrc` - When any `*.coffee` file in `src/` that doesn't match
-  `*.spec.coffee` changes, the Coffee scripts are compiled independently into
-  `build/src` in a structure mirroring where they were in `src/` so it's easy to
-  locate problems. For example, the file
-  `src/common/titleService/titleService.coffee` is compiled to
-  `build/src/common/titleService/titleService.js`.
-* `delta:tpls` - When any `*.tpl.html` file within `src/` changes, all templates
-  are put into strings in a JavaScript file (technically two, one for
-  `src/common/` and another for `src/app/`) that will add the template to
-  AngularJS's
-  [`$templateCache`](http://docs.angularjs.org/api/ng.$templateCache) so
-  template files are part of the initial JavaScript payload and do not require
-  any future XHR.  The template cache files are `build/template-app.js` and
-  `build/template-common.js`.
 * `delta:jsunit` - When any `*.spec.js` file in `src/` changes, the test files
   are linted and the unit tests are executed.
-* `delta:coffeeunit` - When any `*.spec.coffee` file in `src/` changes, the test
-  files are linted, compiled their tests executed.
 
 As covered in the previous section, `grunt watch` will execute a full build
 up-front and then run any of the aforementioned `delta:*` tasks as needed to
@@ -297,7 +275,7 @@ compile. The build tasks (like those we've been discussing) are the minimal
 tasks required to run your app during development.
 
 Compile tasks, however, get your app ready for production. The compile tasks
-include concatenation, minification, compression, etc. These tasks take a little
+include bundling, minification, compression, etc. These tasks take a little
 bit longer to run and are not at all necessary for development so are not called
 automatically during build or watch.
 

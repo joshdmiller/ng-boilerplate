@@ -1,27 +1,29 @@
 module.exports = function ( karma ) {
   karma.set({
-    /** 
+    /**
      * From where to look for files, starting with the location of this file.
      */
     basePath: '../',
 
-    /**
-     * This is the list of file patterns to load into the browser during testing.
-     */
-    files: [
-      <% scripts.forEach( function ( file ) { %>'<%= file %>',
-      <% }); %>
-      'src/**/*.js',
-      'src/**/*.coffee',
-    ],
-    exclude: [
-      'src/assets/**/*.js'
-    ],
-    frameworks: [ 'jasmine' ],
-    plugins: [ 'karma-jasmine', 'karma-firefox-launcher', 'karma-coffee-preprocessor' ],
-    preprocessors: {
-      '**/*.coffee': 'coffee',
+    systemjs: {
+      /**
+       * This is the list of file patterns to load into the browser during testing.
+       */
+      files: [
+        <% scripts.forEach( function ( file ) { %>'<%= file %>',
+        <% }); %>
+        'src/**/*.tpl.html',
+        'src/**/*.js'
+      ],
+      configFile: '<%= systemjs.config_file %>',
+      config: {
+        paths: {
+          'angular-mocks': 'vendor/angular-mocks/angular-mocks.js'
+        }
+      }
     },
+    frameworks: [ 'systemjs', 'jasmine' ],
+    plugins: [ 'karma-systemjs', 'karma-jasmine', 'karma-firefox-launcher' ],
 
     /**
      * How to report, by default.
@@ -36,7 +38,7 @@ module.exports = function ( karma ) {
     runnerPort: 9100,
     urlRoot: '/',
 
-    /** 
+    /**
      * Disable file watching by default.
      */
     autoWatch: false,

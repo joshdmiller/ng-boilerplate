@@ -4,8 +4,12 @@
  * build process will exclude all `.spec.js` files from the build
  * automatically.
  */
+
+import './home';
+import 'angular-mocks';
+
 describe( 'home section', function() {
-  beforeEach( module( 'ngBoilerplate.home' ) );
+  beforeEach( angular.mock.module( 'ngBoilerplate.home' ) );
 
   it( 'should have a dummy test', inject( function() {
     expect( true ).toBeTruthy();

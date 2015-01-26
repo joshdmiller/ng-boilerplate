@@ -1,29 +1,29 @@
-angular.module( 'ngBoilerplate.about', [
+import 'angular';
+import 'angular-ui-router';
+import 'placeholders';
+import 'angular-ui-bootstrap';
+import AboutCtrl from './about.ctrl';
+import template from './about.tpl.html!text';
+
+export default angular.module( 'ngBoilerplate.about', [
   'ui.router',
   'placeholders',
   'ui.bootstrap'
 ])
 
-.config(function config( $stateProvider ) {
+.config([ '$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'about', {
     url: '/about',
     views: {
       "main": {
-        controller: 'AboutCtrl',
-        templateUrl: 'about/about.tpl.html'
+        controller: 'AboutCtrl as aboutCtrl',
+        template: template
       }
     },
     data:{ pageTitle: 'What is It?' }
   });
-})
+}])
 
-.controller( 'AboutCtrl', function AboutCtrl( $scope ) {
-  // This is simple a demo for UI Boostrap.
-  $scope.dropdownDemoItems = [
-    "The first choice!",
-    "And another choice for you.",
-    "but wait! A third!"
-  ];
-})
+.controller( 'AboutCtrl', AboutCtrl )
 
 ;

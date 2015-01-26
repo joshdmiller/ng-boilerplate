@@ -52,7 +52,7 @@ where the magic happens.
 [Grunt](http://gruntjs.com) is a JavaScript task runner that runs on top of
 Node.js. Most importantly, Grunt brings us automation. There are lots of steps
 that go into taking our manageable codebase and making it into a
-production-ready website; we must gather, lint, test, annotate, and copy files
+production-ready website; we must gather, lint, test, and copy files
 about. Instead of doing all of that manually, we write (and use others') Grunt
 tasks to do things for us.
 
@@ -128,12 +128,9 @@ installed from NPM and configured as above:
 
 ```sh
 $ grunt clean
-$ grunt html2js
 $ grunt jshint
 $ grunt karma:continuous
 $ grunt concat
-$ grunt ngmin:dist
-$ grunt uglify
 $ grunt recess
 $ grunt index
 $ grunt copy

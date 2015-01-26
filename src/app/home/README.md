@@ -28,6 +28,13 @@ submodules `note.create`, `note.delete`, `note.search`, etc.
 Regardless, so long as dependencies are managed correctly, the build process
 will automatically take take of the rest.
 
+The route template is included as an ES6 module, run through the text plugin
+for SystemJS, which exports the template as a string.
+
+```js
+import template from './home.tpl.html!text';
+```
+
 The dependencies block is also where component dependencies should be
 specified, as shown below.
 
@@ -56,7 +63,7 @@ title (see the app.js controller).
     views: {
       "main": {
         controller: 'HomeCtrl',
-        templateUrl: 'home/home.tpl.html'
+        template: template
       }
     },
     data:{ pageTitle: 'Home' }

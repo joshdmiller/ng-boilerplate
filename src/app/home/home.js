@@ -1,3 +1,8 @@
+import 'angular';
+import 'angular-ui-router';
+import '../../common/plusOne/plusOne';
+import template from './home.tpl.html!text';
+
 /**
  * Each section of the site has its own module. It probably also has
  * submodules, though this boilerplate is too simple to demonstrate it. Within
@@ -12,7 +17,7 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'ngBoilerplate.home', [
+export default angular.module( 'ngBoilerplate.home', [
   'ui.router',
   'plusOne'
 ])
@@ -22,24 +27,24 @@ angular.module( 'ngBoilerplate.home', [
  * will handle ensuring they are all available at run-time, but splitting it
  * this way makes each module more "self-contained".
  */
-.config(function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'home', {
     url: '/home',
     views: {
       "main": {
         controller: 'HomeCtrl',
-        templateUrl: 'home/home.tpl.html'
+        template: template
       }
     },
     data:{ pageTitle: 'Home' }
   });
-})
+}])
 
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope ) {
-})
+.controller( 'HomeCtrl', [ '$scope', function HomeController( $scope ) {
+}])
 
 ;
 
