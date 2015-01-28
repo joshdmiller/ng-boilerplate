@@ -25,7 +25,7 @@ angular
 })
 
 
-.controller( 'MembersCtrl', function HomeController( members, project ) {
+.controller( 'MembersCtrl', function MembersController( members, project ) {
   this.members = members;
   this.project = project;
   

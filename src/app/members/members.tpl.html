@@ -9,8 +9,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4" ng-repeat="member in ctrl.members">
-      <a class="thumbnail">
+    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4" ng-repeat="member in ctrl.members | orderBy:'person.name'">
+      <a class="thumbnail" ui-sref="member({projectId: ctrl.project.id, memberId:member.person.id})">
        <img class="img-responsive" ng-src="{{member.person.imageUrl}}">
        <div class="caption text-center" >
         {{member.person.name}}

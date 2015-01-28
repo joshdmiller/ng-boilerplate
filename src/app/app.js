@@ -5,7 +5,10 @@ angular.module( 'hermes', [
   'hermes.home',
   'hermes.about',
   'hermes.members',
-  'ui.router'
+  'hermes.member',
+  'ui.router',
+  'nvd3ChartDirectives',
+  'angularMoment'
   ])
 
 .config( function hermesConfig ( $stateProvider, $urlRouterProvider, cfpLoadingBarProvider ) {

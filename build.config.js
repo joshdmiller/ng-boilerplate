@@ -38,7 +38,8 @@ module.exports = {
    */
   test_files: {
     js: [
-      'vendor/angular-mocks/angular-mocks.js'
+      'vendor/angular-mocks/angular-mocks.js',
+      'vendor/animate.css/animate.min.css'
     ]
   },
 
@@ -63,6 +64,7 @@ module.exports = {
   vendor_files: {
     js: [
       'vendor/angular/angular.js',
+      'vendor/angular-animate/angular-animate.min.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
@@ -72,10 +74,14 @@ module.exports = {
       'vendor/moment/moment.js',
       'vendor/angular-moment/angular-moment.js',
       'vendor/angular-loading-bar/build/loading-bar.js',
-      'vendor/jshashes/hashes.js'
+      'vendor/jshashes/hashes.js',
+      'vendor/d3/d3.min.js',
+      'vendor/nvd3/nv.d3.min.js',
+      'vendor/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.min.js'
     ],
     css: [
-      'vendor/angular-loading-bar/build/loading-bar.css'
+      'vendor/angular-loading-bar/build/loading-bar.css',
+      'vendor/animate.css/animate.min.css'
     ],
     assets: [
     ]

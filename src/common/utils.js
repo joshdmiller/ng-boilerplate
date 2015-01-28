@@ -6,3 +6,12 @@ String.prototype.supplant = function (o) {
         }
     );
 };
+
+
+var Utils = function(){};
+
+Utils.prototype.getGravatarImageUrl = function(email){
+    var MD5 = new Hashes.MD5();
+
+    return "http://www.gravatar.com/avatar/{md5}".supplant({md5:MD5.hex(email)});
+};

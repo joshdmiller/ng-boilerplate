@@ -18,10 +18,11 @@
       };
     };
 
-    Factory.prototype.get = function(resource){
+    Factory.prototype.get = function(resource, options){
 
       var deferred = $q.defer();
       
+
       $http.get(this.url(resource),this.options).then(function(result){
         deferred.resolve(result.data);
       });
