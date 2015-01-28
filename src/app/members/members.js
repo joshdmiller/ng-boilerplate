@@ -13,6 +13,9 @@ angular
           resolve:{
             members:function($stateParams, Pivotal){
               return Pivotal.project($stateParams.projectId).members();
+            },
+            project:function($stateParams, Pivotal){
+              return Pivotal.project($stateParams.projectId).get();
             }
           }
         }
@@ -22,9 +25,10 @@ angular
 })
 
 
-.controller( 'MembersCtrl', function HomeController( members ) {
+.controller( 'MembersCtrl', function HomeController( members, project ) {
   this.members = members;
-
+  this.project = project;
+  
   var MD5 = new Hashes.MD5();
 
   angular.forEach(members, function(member){
