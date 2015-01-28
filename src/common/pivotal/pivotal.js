@@ -30,6 +30,10 @@
         return base.rest.get('projects/{projectId}/memberships'.supplant({projectId:this.projectId}));
       };
 
+      this.get = function(){
+        return base.rest.get('projects/{projectId}'.supplant({projectId:this.projectId}));
+      };
+
       return this;
     };
 
