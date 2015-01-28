@@ -11,7 +11,7 @@
     var Factory = function(baseUrl, options){
       this.baseUrl = baseUrl;
       this.options = options;
-
+      this.options.cache = true;
 
       this.url = function(resource){
         return this.baseUrl+resource;
