@@ -390,7 +390,8 @@ module.exports = function ( grunt ) {
           '<%= html2js.app.dest %>',
           '<%= vendor_files.css %>',
           '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
-        ]
+        ],
+        lr: [ 'http://localhost:35729/livereload.js' ]
       },
 
       /**
@@ -404,7 +405,8 @@ module.exports = function ( grunt ) {
           '<%= concat.compile_js.dest %>',
           '<%= vendor_files.css %>',
           '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
-        ]
+        ],
+        lr: []  // we don't want to include livereload on compile
       }
     },
 
@@ -614,6 +616,7 @@ module.exports = function ( grunt ) {
     var cssFiles = filterForCSS( this.filesSrc ).map( function ( file ) {
       return file.replace( dirRE, '' );
     });
+    var lrFile = this.data.lr; // get the livereload file if it exists for this task
 
     grunt.file.copy('src/index.html', this.data.dir + '/index.html', { 
       process: function ( contents, path ) {
@@ -621,6 +624,7 @@ module.exports = function ( grunt ) {
           data: {
             scripts: jsFiles,
             styles: cssFiles,
+            lr: lrFile, // pass the livereload file
             version: grunt.config( 'pkg.version' )
           }
         });
