@@ -4,3 +4,4 @@ build/
 bin/
 node_modules/
 vendor/
+!vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js
