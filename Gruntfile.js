@@ -18,6 +18,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   /**
    * Load in our build configuration file.
@@ -58,6 +59,21 @@ module.exports = function ( grunt ) {
       options: {
         dest: 'CHANGELOG.md',
         template: 'changelog.tpl'
+      }
+    },
+
+    /**
+     * Creates a server.
+     */
+    connect: {
+      server: {
+        options: {
+          livereload: true,
+          hostname: 'localhost',
+          base: 'build',
+          port: 8080,
+          open: true
+        }
       }
     },
 
@@ -557,7 +573,7 @@ module.exports = function ( grunt ) {
    * before watching for changes.
    */
   grunt.renameTask( 'watch', 'delta' );
-  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
+  grunt.registerTask( 'watch', [ 'build', 'server', 'karma:unit', 'delta' ] );
 
   /**
    * The default task is to build and compile.
@@ -572,6 +588,13 @@ module.exports = function ( grunt ) {
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
     'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build', 'karmaconfig',
     'karma:continuous' 
+  ]);
+
+  /**
+   * The server task is to start and connect to a server.
+   */
+  grunt.registerTask( 'server', [
+    'connect' 
   ]);
 
   /**
