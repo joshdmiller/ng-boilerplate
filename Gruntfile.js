@@ -311,6 +311,9 @@ module.exports = function ( grunt ) {
      * the defaults here.
      */
     coffeelint: {
+      options: {
+        configFile: 'coffeelint.json'
+      },
       src: {
         files: {
           src: [ '<%= app_files.coffee %>' ]
