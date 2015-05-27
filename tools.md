@@ -192,11 +192,11 @@ dependencies our application needs in order to work. If we simply call
 $ bower install
 ```
 
-it will read these three dependencies and install them into the `vendor/` folder
+it will read these three dependencies and install them into the `bower_components/` folder
 (along with any dependencies they have) so that we can use them in our app. If
 we want to add a new package like AngularUI's
 [ngGrid](http://angular-ui.github.io/ng-grid/), then we can tell Bower to
-install that from the web, place it into the `vendor/` folder for us to use, and
+install that from the web, place it into the `bower_components/` folder for us to use, and
 then add it as a dependency to `bower.json`:
 
 ```js
@@ -209,7 +209,7 @@ overview.
 
 One last thing to note is that packages installed with Bower are not
 standardized, so we cannot automatically add them to the build process; anything
-installed with Bower (or placed in the `vendor/` directory manually) *must* be
+installed with Bower (or placed in the `bower_components/` directory manually) *must* be
 added to your `build.config.js` file manually; look for the Bower libs included
 in `ngBoilerplate` by default in there to see what I mean.
 

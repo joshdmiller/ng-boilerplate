@@ -84,7 +84,7 @@ ng-boilerplate/
   |  |  |- <reusable code>
   |  |- less/
   |  |  |- main.less
-  |- vendor/
+  |- bower_components/
   |  |- angular-bootstrap/
   |  |- bootstrap/
   |  |- placeholders/
@@ -103,12 +103,12 @@ learn more.
 
 - `karma/` - test configuration.
 - `src/` - our application sources. [Read more &raquo;](src/README.md)
-- `vendor/` - third-party libraries. [Bower](http://bower.io) will install
+- `bower_components/` - third-party libraries. [Bower](http://bower.io) will install
   packages here. Anything added to this directory will need to be manually added
   to `build.config.js` and `karma/karma-unit.js` to be picked up by the build
   system.
 - `.bowerrc` - the Bower configuration file. This tells Bower to install
-  components into the `vendor/` directory.
+  components into the `bower_components/` directory.
 - `bower.json` - this is our project configuration for Bower and it contains the
   list of Bower dependencies we need.
 - `build.config.js` - our customizable build settings; see "The Build System"
@@ -165,7 +165,7 @@ everything needed into a folder called `node_modules/`.
 
 There are many Bower packages used by `ngBoilerplate`, like Twitter Bootstrap
 and Angular UI, which are listed in `bower.js`. To install them into the
-`vendor/` directory, simply run:
+`bower_components/` directory, simply run:
 
 ```sh
 $ bower install
