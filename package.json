@@ -16,6 +16,7 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-bump": "0.0.6",
+    "coffeelint": "~1.14.2",
     "grunt-coffeelint": "~0.0.10",
     "grunt-contrib-clean": "^0.4.1",
     "grunt-contrib-coffee": "^0.7.0",
