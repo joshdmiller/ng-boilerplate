@@ -358,7 +358,7 @@ module.exports = function ( grunt ) {
      */
     karma: {
       options: {
-        configFile: '<%= build_dir %>/karma-unit.js'
+        configFile: 'karma/karma.conf.js'
       },
       unit: {
         port: 9019,
@@ -570,7 +570,7 @@ module.exports = function ( grunt ) {
   grunt.registerTask( 'build', [
     'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
-    'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build', 'karmaconfig',
+    'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build',
     'karma:continuous' 
   ]);
 
@@ -633,18 +633,18 @@ module.exports = function ( grunt ) {
    * run, we use grunt to manage the list for us. The `karma/*` files are
    * compiled as grunt templates for use by Karma. Yay!
    */
-  grunt.registerMultiTask( 'karmaconfig', 'Process karma config templates', function () {
-    var jsFiles = filterForJS( this.filesSrc );
-    
-    grunt.file.copy( 'karma/karma-unit.tpl.js', grunt.config( 'build_dir' ) + '/karma-unit.js', { 
-      process: function ( contents, path ) {
-        return grunt.template.process( contents, {
-          data: {
-            scripts: jsFiles
-          }
-        });
-      }
-    });
-  });
+  //grunt.registerMultiTask( 'karmaconfig', 'Process karma config templates', function () {
+  //  var jsFiles = filterForJS( this.filesSrc );
+  //
+  //  grunt.file.copy( 'karma/karma-unit.tpl.js', grunt.config( 'build_dir' ) + '/karma-unit.js', {
+  //    process: function ( contents, path ) {
+  //      return grunt.template.process( contents, {
+  //        data: {
+  //          scripts: jsFiles
+  //        }
+  //      });
+  //    }
+  //  });
+  //});
 
 };
