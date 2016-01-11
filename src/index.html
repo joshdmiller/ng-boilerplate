@@ -21,16 +21,21 @@
     <!-- font awesome from BootstrapCDN -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
-    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
-    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+    <!-- compiled CSS -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../build/assets/main.css">
+    <!-- endinject -->
 
-    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
-    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+    <!-- inject:js -->
+    <script src="app/app.js"></script>
+    <script src="app/about/about.js"></script>
+    <script src="app/home/home.js"></script>
+    <script src="../vendor/angular/angular.js"></script>
+    <script src="../vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="../vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js"></script>
+    <script src="../vendor/angular-ui-router/release/angular-ui-router.js"></script>
+    <!-- endinject -->
 
-    <!-- it's stupid to have to load it here, but this is for the +1 button -->
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
-      { "parsetags": "explicit" }
-    </script>
   </head>
   <body>
     <div class="container">
