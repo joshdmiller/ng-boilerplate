@@ -358,7 +358,7 @@ module.exports = function ( grunt ) {
      */
     karma: {
       options: {
-        configFile: 'karma/karma.conf.js'
+        configFile: 'karma.conf.js'
       },
       unit: {
         port: 9019,

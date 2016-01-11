@@ -3,7 +3,7 @@ module.exports = function ( karma ) {
     /** 
      * From where to look for files, starting with the location of this file.
      */
-    basePath: '../',
+    basePath: '',
 
     /**
      * This is the list of file patterns to load into the browser during testing.
@@ -17,17 +17,13 @@ module.exports = function ( karma ) {
       'build/templates-common.js',
       'vendor/angular-mocks/angular-mocks.js',
       
-      'src/**/*.js',
-      'src/**/*.coffee',
+      'src/**/*.js'
     ],
     exclude: [
       'src/assets/**/*.js'
     ],
     frameworks: [ 'jasmine' ],
     plugins: [ 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-coffee-preprocessor' ],
-    preprocessors: {
-      '**/*.coffee': 'coffee',
-    },
 
     /**
      * How to report, by default.
