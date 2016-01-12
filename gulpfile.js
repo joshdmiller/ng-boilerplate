@@ -12,6 +12,8 @@ var vendorJS = [
     'vendor/angular-ui-utils/modules/route/route.js'
 ];
 
+var profile = 'build';
+
 gulp.task('default', ['test']);
 
 gulp.task('test', function (done) {
@@ -38,7 +40,7 @@ gulp.task('less', function () {
         .pipe(less({
             paths: [ path.join(__dirname, 'less', 'includes') ]
         }))
-        .pipe(gulp.dest('build/assets'));
+        .pipe(gulp.dest(profile+'/assets'));
 });
 
 gulp.task('copy-files', ['copy-vendor-files'], function(){
@@ -46,7 +48,7 @@ gulp.task('copy-files', ['copy-vendor-files'], function(){
     var filesToCopy = ['src/**/*.js', '!src/**/*.spec.js', 'src/**/*.html'];
 
     return gulp.src(filesToCopy)
-        .pipe(gulp.dest('build/'));
+        .pipe(gulp.dest(profile+'/'));
 });
 
 gulp.task('copy-vendor-files', function(){
@@ -54,11 +56,11 @@ gulp.task('copy-vendor-files', function(){
     var filesToCopy = vendorJS;
 
     return gulp.src(filesToCopy)
-        .pipe(gulp.dest('build/vendor/'));
+        .pipe(gulp.dest(profile+'/vendor/'));
 });
 
 gulp.task('index', function () {
-    var includes = ['./src/**/*.js', '!./src/**/*.spec.js', './build/assets/main.css'];
+    var includes = ['./src/**/*.js', '!./src/**/*.spec.js', './'+profile+'/assets/main.css'];
     includes = includes.concat(vendorJS);
 
     var sources = gulp.src(includes, {read: false});
