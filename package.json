@@ -12,15 +12,21 @@
     "type": "git",
     "url": "git@github.com:ngbp/ngbp.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "del": "^2.2.0"
+  },
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-html2js": "^0.3.1",
     "gulp-less": "^3.0.5",
+    "gulp-ng-html2js": "^0.2.0",
+    "gulp-version-number": "^0.1.4",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.19",
     "karma-coffee-preprocessor": "^0.3.0",
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.3",
-    "phantomjs": "^1.9.19"
+    "phantomjs": "^1.9.19",
+    "run-sequence": "^1.1.5"
   }
 }

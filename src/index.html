@@ -23,18 +23,11 @@
 
     <!-- compiled CSS -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="../build/assets/main.css">
     <!-- endinject -->
 
     <!-- inject:js -->
-    <script src="app/app.js"></script>
-    <script src="app/about/about.js"></script>
-    <script src="app/home/home.js"></script>
-    <script src="../vendor/angular/angular.js"></script>
-    <script src="../vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="../vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js"></script>
-    <script src="../vendor/angular-ui-router/release/angular-ui-router.js"></script>
     <!-- endinject -->
+    <script type="text/javascript" src="templates-app.js"></script>
 
   </head>
   <body>
@@ -51,8 +44,8 @@
           <div class="navbar-brand">
             ngbp
             <small>
-              <a href="http://github.com/ngbp/ngbp/blob/v<%= version %>-release/CHANGELOG.md">
-                v<%= version %>
+              <a href="http://github.com/ngbp/ngbp/blob/%%VERSION_NUMBER%%-release/CHANGELOG.md">
+                %%VERSION_NUMBER%%
               </a>
             </small>
           </div>

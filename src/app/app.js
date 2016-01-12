@@ -1,4 +1,5 @@
 angular.module( 'ngBoilerplate', [
+  'templates-app',
   'ngBoilerplate.home',
   'ngBoilerplate.about',
   'ui.router'
