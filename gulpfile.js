@@ -1,44 +1,52 @@
-var gulp = require('gulp');
-var Server = require('karma').Server;
-var less = require('gulp-less');
-var path = require('path');
-var inject = require('gulp-inject');
-var del = require('del');
-var runSequence = require('run-sequence');
-var concat = require('gulp-concat');
-var ngHtml2Js = require("gulp-ng-html2js");
-var injectString = require('gulp-inject-string');
-var versionNumber = 'v1.0';
+var gulp = require('gulp'),
+    Server = require('karma').Server,
+    less = require('gulp-less'),
+    path = require('path'),
+    inject = require('gulp-inject'),
+    injectString = require('gulp-inject-string'),
+    del = require('del'),
+    runSequence = require('run-sequence'),
+    concat = require('gulp-concat'),
+    html2js = require("gulp-ng-html2js");
 
-var profile = 'build';
+var versionNumber = 'v1.0',
+    profile = 'build';
 
-gulp.task('default', ['test']);
-
-gulp.task('test', function (done) {
-    new Server({
-        configFile: __dirname + '/test.conf.js',
-        singleRun: true
-    }, done).start();
-});
-
-gulp.task('karma-watch', function (done) {
-    new Server({
-        configFile: __dirname + '/test.conf.js',
-    },  done).start();
-});
-
-gulp.task('watch', function() {
-    gulp.watch('src/**/*.js', ['karma-watch']);
-});
+gulp.task('default', ['watch']);
 
 gulp.task('build', function(callback) {
-    runSequence('clean', 'copy-files', 'less', 'index',
-        callback);
+    runSequence('clean', 'copy-files', 'less', 'index','test', callback);
 });
 
 gulp.task('clean', function() {
     return del([profile]);
 });
+
+/*--- js ----*/
+
+gulp.task('test', function (done) {
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done).start();
+});
+
+gulp.task('watch', ['build'], function(callback) {
+    gulp.watch('src/**/*.js', function(){
+        runSequence('copy-js-files', 'test');
+    });
+    gulp.watch('src/**/*.less', ['less']);
+    gulp.watch('src/index.html', function(){
+        runSequence('copy-index', 'index');
+    });
+    gulp.watch('src/**/*.tpl.html', ['html2js']);
+});
+
+gulp.task('copy-js-files', function(){
+    return gulp.src(['src/**/*.js', '!src/**/*.spec.js']).pipe(gulp.dest(profile+'/'));
+});
+
+/*-- html --*/
 
 gulp.task('less', function () {
     return gulp.src('src/less/main.less')
@@ -48,22 +56,10 @@ gulp.task('less', function () {
         .pipe(gulp.dest(profile+'/assets'));
 });
 
-gulp.task('copy-files', ['copy-vendor-files', 'html2js'], function(){
+gulp.task('copy-files', ['copy-index', 'copy-js-files', 'copy-vendor-files', 'html2js']);
 
-    var filesToCopy = ['src/**/*.js', '!src/**/*.spec.js', 'src/index.html'];
-
-    return gulp.src(filesToCopy)
-        .pipe(gulp.dest(profile+'/'));
-});
-
-gulp.task('html2js', function(){
-    gulp.src("src/app/**/*.tpl.html")
-        .pipe(ngHtml2Js({
-            moduleName: "templates-app",
-            prefix: ""
-        }))
-        .pipe(concat("templates-app.js"))
-        .pipe(gulp.dest("./"+profile));
+gulp.task('copy-index', function(){
+    return gulp.src(['src/index.html']).pipe(gulp.dest(profile+'/'));
 });
 
 gulp.task('copy-vendor-files', function(){
@@ -78,6 +74,16 @@ gulp.task('copy-vendor-files', function(){
 
     return gulp.src(filesToCopy)
         .pipe(gulp.dest(profile+'/vendor'));
+});
+
+gulp.task('html2js', function(){
+    gulp.src("src/app/**/*.tpl.html")
+        .pipe(html2js({
+            moduleName: "templates-app",
+            prefix: ""
+        }))
+        .pipe(concat("templates-app.js"))
+        .pipe(gulp.dest("./"+profile));
 });
 
 gulp.task('index', function () {
