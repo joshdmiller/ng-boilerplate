@@ -32,7 +32,7 @@ around: [Twitter Bootstrap](http://getbootstrap.com),
 [Angular Bootstrap](http://angular-ui.github.io/bootstrap),
 [Font Awesome](http://fortawesome.github.com/Font-Awesome), and
 [LESS](http://lesscss.org). Lastly, it contains a sophisticated
-[Grunt](http://gruntjs.org)-based build system to ensure maximum productivity.
+[Grunt](http://gruntjs.com)-based build system to ensure maximum productivity.
 All you have to do is clone it and start coding!
 
 ## Philosophy
@@ -131,7 +131,7 @@ of the tools](tools.md) before continuing with this section.
 
 Okay, ready to go? Here it is:
 
-`ngBoilerplate` uses [Grunt](http://gruntjs.org) as its build system, so
+`ngBoilerplate` uses [Grunt](http://gruntjs.com) as its build system, so
 [Node.js](http://nodejs.org) is required. Also, Grunt by default no longer comes
 with a command-line utility and Karma and Bower must end up in your global path
 for the build system to find it, so they must be installed independently. Once
