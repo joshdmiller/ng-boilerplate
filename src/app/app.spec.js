@@ -10,8 +10,9 @@ describe( 'AppCtrl', function() {
       AppCtrl = $controller( 'AppCtrl', { $location: $location, $scope: $scope });
     }));
 
-    it( 'should pass a dummy test', inject( function() {
+    it( 'should pass a dummy test', inject( function(ENV) {
       expect( AppCtrl ).toBeTruthy();
+      expect(ENV).toBeDefined();
     }));
   });
 });
