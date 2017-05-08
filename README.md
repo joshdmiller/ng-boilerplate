@@ -318,7 +318,8 @@ expected, open the `bin/index.html` file in your browser. Voila!
 longer have to refresh your page after making changes! You need a Live Reload
 browser plugin for this:
 
-- Chrome - [Chrome Webstore](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
+- Chrome - [Download Live Reload from Chrome Webstore](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
+- Chrome - [Download Remote Live Reload from Chrome Webstore](https://chrome.google.com/webstore/detail/remotelivereload/jlppknnillhjgiengoigajegdpieppei)
 - Firefox - [Download from Live Reload](http://download.livereload.com/2.0.8/LiveReload-2.0.8.xpi)
 - Safari - [Download from Live Reload](http://download.livereload.com/2.0.9/LiveReload-2.0.9.safariextz)
 - Internet Explorer - Surely you jest.
@@ -327,6 +328,8 @@ Note that if you're using the Chrome version with `file://` URLs (as is the
 default with `ngBoilerplate`) you need to tell Live Reload to allow it. Go to
 `Menu -> Tools -> Extensions` and check the "Allow access to file URLs" box next
 to the Live Reload plugin.
+
+Note that if you're using the Chrome version of Live Reload, the host is hard coded to 127.0.0.1 by the extension. If you are running a remote server (for example, Apache hosted on another machine or a Vagrant VM) and you try the Live Reload extension, you'll get an error similar to "Cannot connect to Live Reload server". If you use the "Remote Live Reload" extension you will have live reloading without the need to manually specify the script in your HTML files.
 
 When you load your page, click the Live Reload icon in your toolbar and
 everything should work magically. w00t!
